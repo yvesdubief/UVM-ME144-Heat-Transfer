@@ -11,53 +11,106 @@ def interpolate_table(target,index,xquantity,yquantity):
     return yquantity[index] + \
                 (yquantity[index+1]-yquantity[index])* \
                 (target-xquantity[index])/(xquantity[index+1]-xquantity[index])
-
-def water_look_up_1atm(T_o):
-    T,p,rho,Cp,mu,k = \
-    np.genfromtxt('tables/water1atm.csv', delimiter=',', skip_header = 1, unpack=True, dtype=None)
-    Ntab = len(T)
-    Cp *= 1e3
-    nu = mu/rho 
-    alpha = k/(rho*Cp)
-    Pr = nu/alpha
-    dT = T[1] - T[0]
-    i = int((T_o-T[0])/dT)
-    if (i == Ntab - 1):
-        i == Ntab - 2
-    rho_o = interpolate_table(T_o,i,T,rho)
-    Cp_o = interpolate_table(T_o,i,T,Cp)
-    mu_o = interpolate_table(T_o,i,T,mu)
-    k_o = interpolate_table(T_o,i,T,k)
-    nu_o = interpolate_table(T_o,i,T,nu)
-    alpha_o = interpolate_table(T_o,i,T,alpha)
-    Pr_o = interpolate_table(T_o,i,T,Pr)
-    # compute beta from -rho(d rho/dT)
-    beta = -(1./rho)*np.gradient(rho)/dT
-    beta_o = interpolate_table(T_o,i,T,beta)
-    return rho_o,Cp_o,mu_o,k_o,nu_o,alpha_o,Pr_o,beta_o
-
-def air_look_up_1atm(T_o):
-    T,rho,Cp,k,nu,beta,Pr = \
-    np.genfromtxt('tables/air1atm.csv', delimiter=',', skip_header = 1, unpack=True, dtype=None)
-    Ntab = len(T)
-    T = C2K(T)
-    Cp *= 1e3
-    nu *= 1e-6
-    mu = rho*nu
-    alpha = k/(rho*Cp)
-    Pr = nu/alpha
-    i = 0
-    while (T[i] < T_o) and (i<Ntab):
-        i += 1
-    i -=1
-    if (i == Ntab - 1):
-        i == Ntab - 2
-    rho_o = interpolate_table(T_o,i,T,rho)
-    Cp_o = interpolate_table(T_o,i,T,Cp)
-    k_o = interpolate_table(T_o,i,T,k)
-    nu_o = interpolate_table(T_o,i,T,nu)
-    mu_o = interpolate_table(T_o,i,T,mu)
-    alpha_o = interpolate_table(T_o,i,T,alpha)
-    Pr_o = interpolate_table(T_o,i,T,Pr)
-    beta = 1./T_o
-    return rho_o,Cp_o,mu_o,k_o,nu_o,alpha_o,Pr_o,beta
+        
+class Fluid(object):
+    """ Compute thermodynamics properties of air between -150 C and 400 C, 
+        water between 274K and 373K, argon between 100 and 700K and
+        krypton between 150 and 700 K under 1 atm. Argon, krypton and water were obtained 
+        through http://webbook.nist.gov/chemistry/fluid/
+        Declare your fluid as fluid=Fluid('name') where
+        name is air, water, argon or krypton
+        Then run fluid.get_properties(T) where T is your temperature
+        Note that the temperature must be in Kelvin
+        More fluids to be added in the future"""
+    def __init__(self,name):
+        self.name = name
+        
+    def get_properties(self,T_o):
+        self.T = T_o
+        if self.name == 'water':
+            if T_o < 274 or T_o > 373:
+                print("Temperature is out of bounds for liquid water")
+                return 
+            Ttab,ptab,rhotab,Cptab,mutab,ktab = \
+            np.genfromtxt('Tables/water1atm.csv', delimiter=',', skip_header = 1, unpack=True, dtype=float)
+            Ntab = len(Ttab)
+            Cptab *= 1e3
+            nutab = mutab/rhotab 
+            alphatab = ktab/(rhotab*Cptab)
+            Prtab = nutab/alphatab
+            dTtab = Ttab[1] - Ttab[0]
+            # compute beta from -rho(d rho/dT)
+            betatab = -(1./rhotab)*np.gradient(rhotab)/dTtab
+            i = int((T_o-Ttab[0])/dTtab)
+            if (i == Ntab - 1):
+                i == Ntab - 2
+        elif self.name == 'argon':
+            if T_o < 100 or T_o > 700:
+                print("Temperature is out of bounds for argon")
+                return 
+            Ttab,ptab,rhotab,Cptab,mutab,ktab = \
+            np.loadtxt('Tables/Argon1atm.csv', delimiter=',', skiprows = 1, unpack=True, dtype=float)
+            Ntab = len(Ttab)
+            Cptab *= 1e3
+            nutab = mutab/rhotab 
+            alphatab = ktab/(rhotab*Cptab)
+            Prtab = nutab/alphatab
+            dTtab = Ttab[1] - Ttab[0]
+            # compute beta from -rho(d rho/dT)
+            betatab = -(1./rhotab)*np.gradient(rhotab)/dTtab
+            i = int((T_o-Ttab[0])/dTtab)
+            if (i == Ntab - 1):
+                i == Ntab - 2
+        elif self.name == 'krypton':
+            if T_o < 150 or T_o > 740:
+                print("Temperature is out of bounds for krypton")
+                return 
+            Ttab,ptab,rhotab,Cptab,mutab,ktab = \
+            np.loadtxt('Tables/Krypton1atm.csv', delimiter=',', skiprows = 1, unpack=True, dtype=float)
+            Ntab = len(Ttab)
+            Cptab *= 1e3
+            nutab = mutab/rhotab 
+            alphatab = ktab/(rhotab*Cptab)
+            Prtab = nutab/alphatab
+            dTtab = Ttab[1] - Ttab[0]
+            # compute beta from -rho(d rho/dT)
+            betatab = -(1./rhotab)*np.gradient(rhotab)/dTtab
+            i = int((T_o-Ttab[0])/dTtab)
+            if (i == Ntab - 1):
+                i == Ntab - 2
+        elif self.name == 'air':
+            if T_o < C2K(-150.) or T_o > C2K(400.):
+                print("Temperature is out of bounds of the table for air")
+                return
+            Ttab,rhotab,Cptab,ktab,nutab,betatab,Prtab = \
+            np.genfromtxt('Tables/air1atm.csv', delimiter=',', skip_header = 1, unpack=True, dtype=float)
+            Ntab = len(Ttab)
+            Ttab = C2K(Ttab)
+            Cptab *= 1e3
+            nutab *= 1e-6
+            mutab = rhotab*nutab
+            alphatab = ktab/(rhotab*Cptab)
+            Prtab = nutab/alphatab
+            i = 0
+            while (Ttab[i] < T_o) and (i<Ntab):
+                i += 1
+            i -=1
+            if (i == Ntab - 1):
+                i = Ntab - 2
+            
+        else:
+            print("warning, no table available for", self.name)
+            return
+        
+        self.rho = interpolate_table(T_o,i,Ttab,rhotab)
+        self.Cp = interpolate_table(T_o,i,Ttab,Cptab)
+        self.mu = interpolate_table(T_o,i,Ttab,mutab)
+        self.k = interpolate_table(T_o,i,Ttab,ktab)
+        self.nu = interpolate_table(T_o,i,Ttab,nutab)
+        self.alpha = interpolate_table(T_o,i,Ttab,alphatab)
+        self.Pr = interpolate_table(T_o,i,Ttab,Prtab)
+        if (self.name == 'air'):
+            self.beta = 1./T_o
+        else:
+            self.beta = interpolate_table(T_o,i,Ttab,betatab)
+        
