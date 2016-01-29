@@ -73,7 +73,7 @@ class Resistance(object):
             Asym = sym.symbols(self.surface_name)
             namesym = "q'_"+str(index)
         elif self.units == 'W/m^2':
-            namesym = "q_"+str(index)
+            namesym = "q''_"+str(index)
         else:
             print('units are not properly defined')
         qsym = sym.symbols(namesym)

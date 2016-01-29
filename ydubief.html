@@ -187,11 +187,59 @@ Text provided under a Creative Commons Attribution license, CC-BY. All code is m
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">student_id</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Please enter your NETID (e.g. ydubief)&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span>
+<span class="n">assignment_name</span> <span class="o">=</span> <span class="n">student_id</span><span class="o">+</span><span class="s">&#39;_HW0&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Please enter your NETID (e.g. ydubief)ydubief
+ydubief
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="o">%</span><span class="k">matplotlib</span> inline 
 <span class="c"># plots graphs within the notebook</span>
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;svg&#39; # not sure what this does, may be default images to svg format
 
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span><span class="n">Image</span><span class="p">,</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">sympy.interactive</span> <span class="kn">import</span> <span class="n">printing</span>
+<span class="n">printing</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s">&#39;mathjax&#39;</span><span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span><span class="n">Image</span><span class="p">,</span> <span class="n">Latex</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
+
+<span class="kn">import</span> <span class="nn">SchemDraw</span> <span class="kn">as</span> <span class="nn">schem</span>
+<span class="kn">import</span> <span class="nn">SchemDraw.elements</span> <span class="kn">as</span> <span class="nn">e</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">scipy.constants</span> <span class="kn">as</span> <span class="nn">sc</span>
+
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sym</span>
 
 <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 <span class="k">def</span> <span class="nf">header</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -244,13 +292,6 @@ Text provided under a Creative Commons Attribution license, CC-BY. All code is m
         <span class="s">&#39;size&#39;</span>   <span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
         <span class="p">}</span>
 
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
-
-<span class="kn">import</span> <span class="nn">SchemDraw</span> <span class="kn">as</span> <span class="nn">schem</span>
-<span class="kn">import</span> <span class="nn">SchemDraw.elements</span> <span class="kn">as</span> <span class="nn">e</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">scipy.constants.constants</span> <span class="kn">import</span> <span class="n">C2K</span>
 <span class="kn">from</span> <span class="nn">scipy.constants.constants</span> <span class="kn">import</span> <span class="n">K2C</span>
@@ -261,35 +302,6 @@ Text provided under a Creative Commons Attribution license, CC-BY. All code is m
 </pre></div>
 
 </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">student_id</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Please enter your NETID (e.g. ydubief)&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Please enter your NETID (e.g. ydubief)ydubief
-ydubief
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -312,7 +324,7 @@ ydubief
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">PDF</span><span class="p">(</span><span class="s">&#39;figures/window-single-pane-fig.pdf&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
@@ -326,7 +338,7 @@ ydubief
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <iframe src=figures/window-single-pane-fig.pdf width=600 height=500></iframe>
@@ -349,7 +361,7 @@ ydubief
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">H</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="c">#m Height</span>
@@ -372,16 +384,16 @@ ydubief
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">Libraries</span> <span class="kn">import</span> <span class="n">HT_thermal_resistance</span> <span class="k">as</span> <span class="n">res</span>
 <span class="kn">from</span> <span class="nn">Libraries</span> <span class="kn">import</span> <span class="n">thermodynamics</span> <span class="k">as</span> <span class="n">thermo</span>
 
 <span class="n">Rth</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv.0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond.0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv.1}$&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv.0}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond.0}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv.1}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
 <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_{\infty.in}$&#39;</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
@@ -896,35 +908,116 @@ z
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The heat transfer across the window is</p>
-$$
-q=\frac{1}{R_{tot}}(T_{\infty.in}-T_{\infty.out})
-$$<p>where $R_{tot}$ is the sum of thermal resistance in the above thermal resistance circuit. Due to conservation of energy, the following equations also apply:
-$$
-q=\frac{1}{R_{conv.0}}(T_{\infty.in}-T_{in})\\
-q=\frac{1}{R_{cond.0}}(T_{in}-T_{out})\\
-q=\frac{1}{R_{conv.1}}(T_{out}-T_{\infty.out})\\
-$$
-which is useful to determine the temperature distribution.</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="c"># definition of thermal resistances</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_in</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;h_{c.i}&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.\infty}&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.glass}&#39;</span><span class="p">)</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;k_{glass}&#39;</span><span class="p">,</span><span class="s">&#39;t&#39;</span><span class="p">,</span><span class="s">&#39;none&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.glass}&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.glass}&#39;</span><span class="p">)</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_out</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;h_{c.o}&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.glass}&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.\infty}&#39;</span><span class="p">)</span>
+
+
+<span class="c">#Verification of equations:</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Thermal element # </span><span class="si">%2i</span><span class="s">&quot;</span> <span class="o">%</span><span class="k">i</span>)
+    <span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">display_equation</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
 
 </div>
 </div>
 </div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  0
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{0} = \frac{1}{R_{{conv.0}}} \left(T_{{in.\infty}} - T_{{in.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{0} = A h_{{c.i}} \left(T_{{in.\infty}} - T_{{in.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  1
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{1} = \frac{1}{R_{{cond.0}}} \left(T_{{in.glass}} - T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{1} = \frac{A k_{{glass}}}{t} \left(T_{{in.glass}} - T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  2
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{2} = \frac{1}{R_{{conv.1}}} \left(- T_{{out.\infty}} + T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{2} = A h_{{c.o}} \left(- T_{{out.\infty}} + T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># definition of thermal resistances</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_in</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_out</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="c"># compute total resistance</span>
+<div class=" highlight hl-ipython2"><pre><span class="c"># compute total resistance</span>
 <span class="n">Rtotal</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">serial_sum</span><span class="p">(</span><span class="n">Rth</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;Total thermal resistance: </span><span class="si">%3.3f</span><span class="s">&#39;</span> <span class="o">%</span><span class="k">Rtotal</span>)
 <span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">)</span><span class="o">/</span><span class="n">Rtotal</span>
@@ -932,7 +1025,7 @@ which is useful to determine the temperature distribution.</p>
 <span class="n">T_in</span> <span class="o">=</span> <span class="n">T_inf_in</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;Surface temperature of the window (inside): </span><span class="si">%3.1f</span><span class="s"> F&#39;</span> <span class="o">%</span><span class="k">C2F</span>(T_in))
 <span class="n">T_out</span> <span class="o">=</span> <span class="n">T_in</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&#39;Surface temperature of the window (inside): </span><span class="si">%3.1f</span><span class="s"> F&#39;</span> <span class="o">%</span><span class="k">C2F</span>(T_out))
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Surface temperature of the window (outside): </span><span class="si">%3.1f</span><span class="s"> F&#39;</span> <span class="o">%</span><span class="k">C2F</span>(T_out))
 </pre></div>
 
 </div>
@@ -948,7 +1041,7 @@ which is useful to determine the temperature distribution.</p>
 <pre>Total thermal resistance: 0.113
 Heat transfer: 266.16 W
 Surface temperature of the window (inside): 28.1 F
-Surface temperature of the window (inside): 24.0 F
+Surface temperature of the window (outside): 24.0 F
 </pre>
 </div>
 </div>
@@ -957,273 +1050,21 @@ Surface temperature of the window (inside): 24.0 F
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">sympy.interactive</span> <span class="kn">import</span> <span class="n">printing</span>
-<span class="n">printing</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s">&#39;mathjax&#39;</span><span class="p">)</span>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3>Double-pane window</h3>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
-<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sym</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">)):</span>
-    <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;q_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">qsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-    <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;T_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">Tasym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-    <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;T_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">Tbsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-    <span class="n">Asym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;conduction&#39;</span><span class="p">:</span>
-        <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;k_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">cstsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-        <span class="n">Lsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
-        <span class="n">eq</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,</span><span class="n">cstsym</span><span class="o">/</span><span class="n">Lsym</span><span class="o">*</span><span class="n">Asym</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;convection&#39;</span><span class="p">:</span>
-        <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;h_{c.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;}&#39;</span>
-        <span class="n">cstsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-        <span class="n">eq</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,</span><span class="n">cstsym</span><span class="o">*</span><span class="n">Asym</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s">&#39;radiation&#39;</span><span class="p">:</span>
-        <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;h_{r.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;}&#39;</span>
-        <span class="n">stsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-        <span class="n">eq</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,</span><span class="n">cstsym</span><span class="o">*</span><span class="n">Asym</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    
-    <span class="k">print</span><span class="p">(</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">eq</span>
-<span class="n">eq</span>  
-<span class="c">#var = Rth[0].name</span>
-<span class="c">#print(var[1:-1])</span>
-<span class="c">#R = symbols(var[1:-1])</span>
-<span class="c">#q = symbols(&#39;q&#39;)</span>
-<span class="c">#f, g, h = map(Function, &#39;fgh&#39;)</span>
-<span class="c">#eq = Eq(q,1/R)</span>
-<span class="c">#eq</span>
-</pre></div>
+<p>Repeat the same exercise but now with a double pane window, consisting of two glass windows of the same dimensions as before and a sealed gap filled with gas (gap thickness: 8 mm). Determine the heat loss and pressure distribution across the window when the gap is filled with air, argon and krypton.</p>
 
 </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>3
-$R_{conv.0}$
-$R_{cond.0}$
-$R_{conv.1}$
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
-
-
-<div class="output_latex output_subarea output_execute_result">
-$$q_{2} = A h_{{c.2}} \left(T_{2} - T_{3}\right)$$
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">sympy.interactive</span> <span class="kn">import</span> <span class="n">printing</span>
-<span class="n">printing</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s">&#39;mathjax&#39;</span><span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
-<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sym</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="k">def</span> <span class="nf">flux_equation</span><span class="p">(</span><span class="n">Rname</span><span class="p">,</span><span class="n">Rmode</span><span class="p">,</span><span class="n">Lcondname</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
-    <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;q_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">qsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-    <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;T_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">Tasym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-    <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;T_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">Tbsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-    <span class="n">Asym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
-    <span class="n">Rsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">Rname</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">eq</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,(</span><span class="mi">1</span><span class="o">/</span><span class="n">Rsym</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">Rmode</span> <span class="o">==</span> <span class="s">&#39;conduction&#39;</span><span class="p">:</span>
-        <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;k_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">cstsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-        <span class="n">Lsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">Lcondname</span><span class="p">)</span>
-        <span class="n">eq1</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,</span><span class="n">cstsym</span><span class="o">/</span><span class="n">Lsym</span><span class="o">*</span><span class="n">Asym</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">Rmode</span> <span class="o">==</span> <span class="s">&#39;convection&#39;</span><span class="p">:</span>
-        <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;h_{c.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;}&#39;</span>
-        <span class="n">cstsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-        <span class="n">eq1</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,</span><span class="n">cstsym</span><span class="o">*</span><span class="n">Asym</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">Rmode</span> <span class="o">==</span> <span class="s">&#39;radiation&#39;</span><span class="p">:</span>
-        <span class="n">namesym</span> <span class="o">=</span> <span class="s">&#39;h_{r.&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;}&#39;</span>
-        <span class="n">stsym</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="n">namesym</span><span class="p">)</span>
-        <span class="n">eq1</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">qsym</span><span class="p">,</span><span class="n">cstsym</span><span class="o">*</span><span class="n">Asym</span><span class="o">*</span><span class="p">(</span><span class="n">Tasym</span><span class="o">-</span><span class="n">Tbsym</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Thermal element </span><span class="si">%2i</span><span class="s">&#39;</span> <span class="o">%</span><span class="k">i</span>)
-    <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">eq</span><span class="p">),</span><span class="n">display</span><span class="p">(</span><span class="n">eq1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">)):</span>
-    <span class="n">flux_equation</span><span class="p">(</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span><span class="s">&#39;t&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Thermal element  0
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_latex output_subarea ">
-$$q_{0} = \frac{1}{R_{{conv.0}}} \left(T_{0} - T_{1}\right)$$
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_latex output_subarea ">
-$$q_{0} = A h_{{c.0}} \left(T_{0} - T_{1}\right)$$
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Thermal element  1
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_latex output_subarea ">
-$$q_{1} = \frac{1}{R_{{cond.0}}} \left(T_{1} - T_{2}\right)$$
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_latex output_subarea ">
-$$q_{1} = \frac{A k_{1}}{t} \left(T_{1} - T_{2}\right)$$
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Thermal element  2
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_latex output_subarea ">
-$$q_{2} = \frac{1}{R_{{conv.1}}} \left(T_{2} - T_{3}\right)$$
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_latex output_subarea ">
-$$q_{2} = A h_{{c.2}} \left(T_{2} - T_{3}\right)$$
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">_oh</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{3: &lt;__main__.PDF at 0x104dd7dd0&gt;,
- 5: &lt;__main__.PDF at 0x104dd74d0&gt;,
- 9: q_2 == A*h_{c.2}*(T_2 - T_3)}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">i</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">flux_equation</span><span class="p">(</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span><span class="s">&#39;t&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
-
-
-<div class="output_latex output_subarea output_execute_result">
-$$\left ( q_{2} = \frac{1}{R_{{conv.1}}} \left(T_{2} - T_{3}\right), \quad q_{2} = A h_{{c.2}} \left(T_{2} - T_{3}\right)\right )$$
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">SchemDraw</span> <span class="kn">as</span> <span class="nn">schem</span>
@@ -1242,12 +1083,14 @@ $$\left ( q_{2} = \frac{1}{R_{{conv.1}}} \left(T_{2} - T_{3}\right), \quad q_{2}
 <span class="n">k_glass</span> <span class="o">=</span> <span class="mf">0.78</span>
 <span class="n">T_inf_in</span> <span class="o">=</span> <span class="mf">20.</span>
 <span class="n">T_inf_out</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.</span>
+<span class="n">t_glass</span> <span class="o">=</span> <span class="mf">0.008</span> <span class="c">#m</span>
+<span class="n">t_gas</span> <span class="o">=</span> <span class="mf">0.008</span> <span class="c">#m</span>
 <span class="n">Rth</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv,0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond,0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond,1}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond,2}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv,1}$&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv.0}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond.0}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond.1}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond.2}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv.1}$&#39;</span><span class="p">,</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
 <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_{\infty,in}$&#39;</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
@@ -1277,7 +1120,7 @@ $$\left ( q_{2} = \frac{1}{R_{{conv.1}}} \left(T_{2} - T_{3}\right), \quad q_{2}
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (http://matplotlib.org/) -->
-<svg height="53pt" version="1.1" viewBox="0 0 537 53" width="537pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="50pt" version="1.1" viewBox="0 0 537 50" width="537pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
 *{stroke-linecap:butt;stroke-linejoin:round;}
@@ -1286,147 +1129,147 @@ $$\left ( q_{2} = \frac{1}{R_{{conv.1}}} \left(T_{2} - T_{3}\right), \quad q_{2}
  <g id="figure_1">
   <g id="patch_1">
    <path d="
-M0 53.9
-L537.6 53.9
-L537.6 -7.10543e-15
-L0 -7.10543e-15
-L0 53.9" style="fill:none;"/>
+M0 50.89
+L537.6 50.89
+L537.6 7.10543e-15
+L0 7.10543e-15
+L0 50.89" style="fill:none;"/>
   </g>
   <g id="axes_1">
    <g id="line2d_1">
-    <path clip-path="url(#p94701a8de4)" d="
-M23.76 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M23.76 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_2">
-    <path clip-path="url(#p94701a8de4)" d="
-M23.76 35.99
-L56.16 35.99
-L58.86 28.34
-L64.26 43.64
-L69.66 28.34
-L75.06 43.64
-L80.46 28.34
-L85.86 43.64
-L88.56 35.99
-L120.96 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M23.76 33.925
+L56.16 33.925
+L58.86 26.95
+L64.26 40.9
+L69.66 26.95
+L75.06 40.9
+L80.46 26.95
+L85.86 40.9
+L88.56 33.925
+L120.96 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_3">
-    <path clip-path="url(#p94701a8de4)" d="
-M120.96 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M120.96 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_4">
-    <path clip-path="url(#p94701a8de4)" d="
-M120.96 35.99
-L153.36 35.99
-L156.06 28.34
-L161.46 43.64
-L166.86 28.34
-L172.26 43.64
-L177.66 28.34
-L183.06 43.64
-L185.76 35.99
-L218.16 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M120.96 33.925
+L153.36 33.925
+L156.06 26.95
+L161.46 40.9
+L166.86 26.95
+L172.26 40.9
+L177.66 26.95
+L183.06 40.9
+L185.76 33.925
+L218.16 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_5">
-    <path clip-path="url(#p94701a8de4)" d="
-M218.16 35.99
-L250.56 35.99
-L253.26 28.34
-L258.66 43.64
-L264.06 28.34
-L269.46 43.64
-L274.86 28.34
-L280.26 43.64
-L282.96 35.99
-L315.36 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M218.16 33.925
+L250.56 33.925
+L253.26 26.95
+L258.66 40.9
+L264.06 26.95
+L269.46 40.9
+L274.86 26.95
+L280.26 40.9
+L282.96 33.925
+L315.36 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_6">
-    <path clip-path="url(#p94701a8de4)" d="
-M315.36 35.99
-L347.76 35.99
-L350.46 28.34
-L355.86 43.64
-L361.26 28.34
-L366.66 43.64
-L372.06 28.34
-L377.46 43.64
-L380.16 35.99
-L412.56 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M315.36 33.925
+L347.76 33.925
+L350.46 26.95
+L355.86 40.9
+L361.26 26.95
+L366.66 40.9
+L372.06 26.95
+L377.46 40.9
+L380.16 33.925
+L412.56 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_7">
-    <path clip-path="url(#p94701a8de4)" d="
-M412.56 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M412.56 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_8">
-    <path clip-path="url(#p94701a8de4)" d="
-M412.56 35.99
-L444.96 35.99
-L447.66 28.34
-L453.06 43.64
-L458.46 28.34
-L463.86 43.64
-L469.26 28.34
-L474.66 43.64
-L477.36 35.99
-L509.76 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M412.56 33.925
+L444.96 33.925
+L447.66 26.95
+L453.06 40.9
+L458.46 26.95
+L463.86 40.9
+L469.26 26.95
+L474.66 40.9
+L477.36 33.925
+L509.76 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="line2d_9">
-    <path clip-path="url(#p94701a8de4)" d="
-M509.76 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+    <path clip-path="url(#pbae16912ee)" d="
+M509.76 33.925" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
    </g>
    <g id="patch_2">
-    <path clip-path="url(#p94701a8de4)" d="
-M23.76 38.285
-C24.4044 38.285 25.0226 38.0432 25.4783 37.6128
-C25.934 37.1824 26.19 36.5986 26.19 35.99
-C26.19 35.3814 25.934 34.7976 25.4783 34.3672
-C25.0226 33.9368 24.4044 33.695 23.76 33.695
-C23.1156 33.695 22.4974 33.9368 22.0417 34.3672
-C21.586 34.7976 21.33 35.3814 21.33 35.99
-C21.33 36.5986 21.586 37.1824 22.0417 37.6128
-C22.4974 38.0432 23.1156 38.285 23.76 38.285
+    <path clip-path="url(#pbae16912ee)" d="
+M23.76 36.0175
+C24.4044 36.0175 25.0226 35.797 25.4783 35.4046
+C25.934 35.0122 26.19 34.4799 26.19 33.925
+C26.19 33.3701 25.934 32.8378 25.4783 32.4454
+C25.0226 32.053 24.4044 31.8325 23.76 31.8325
+C23.1156 31.8325 22.4974 32.053 22.0417 32.4454
+C21.586 32.8378 21.33 33.3701 21.33 33.925
+C21.33 34.4799 21.586 35.0122 22.0417 35.4046
+C22.4974 35.797 23.1156 36.0175 23.76 36.0175
 z
 " style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
    </g>
    <g id="patch_3">
-    <path clip-path="url(#p94701a8de4)" d="
-M120.96 38.285
-C121.604 38.285 122.223 38.0432 122.678 37.6128
-C123.134 37.1824 123.39 36.5986 123.39 35.99
-C123.39 35.3814 123.134 34.7976 122.678 34.3672
-C122.223 33.9368 121.604 33.695 120.96 33.695
-C120.316 33.695 119.697 33.9368 119.242 34.3672
-C118.786 34.7976 118.53 35.3814 118.53 35.99
-C118.53 36.5986 118.786 37.1824 119.242 37.6128
-C119.697 38.0432 120.316 38.285 120.96 38.285
+    <path clip-path="url(#pbae16912ee)" d="
+M120.96 36.0175
+C121.604 36.0175 122.223 35.797 122.678 35.4046
+C123.134 35.0122 123.39 34.4799 123.39 33.925
+C123.39 33.3701 123.134 32.8378 122.678 32.4454
+C122.223 32.053 121.604 31.8325 120.96 31.8325
+C120.316 31.8325 119.697 32.053 119.242 32.4454
+C118.786 32.8378 118.53 33.3701 118.53 33.925
+C118.53 34.4799 118.786 35.0122 119.242 35.4046
+C119.697 35.797 120.316 36.0175 120.96 36.0175
 z
 " style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
    </g>
    <g id="patch_4">
-    <path clip-path="url(#p94701a8de4)" d="
-M412.56 38.285
-C413.204 38.285 413.823 38.0432 414.278 37.6128
-C414.734 37.1824 414.99 36.5986 414.99 35.99
-C414.99 35.3814 414.734 34.7976 414.278 34.3672
-C413.823 33.9368 413.204 33.695 412.56 33.695
-C411.916 33.695 411.297 33.9368 410.842 34.3672
-C410.386 34.7976 410.13 35.3814 410.13 35.99
-C410.13 36.5986 410.386 37.1824 410.842 37.6128
-C411.297 38.0432 411.916 38.285 412.56 38.285
+    <path clip-path="url(#pbae16912ee)" d="
+M412.56 36.0175
+C413.204 36.0175 413.823 35.797 414.278 35.4046
+C414.734 35.0122 414.99 34.4799 414.99 33.925
+C414.99 33.3701 414.734 32.8378 414.278 32.4454
+C413.823 32.053 413.204 31.8325 412.56 31.8325
+C411.916 31.8325 411.297 32.053 410.842 32.4454
+C410.386 32.8378 410.13 33.3701 410.13 33.925
+C410.13 34.4799 410.386 35.0122 410.842 35.4046
+C411.297 35.797 411.916 36.0175 412.56 36.0175
 z
 " style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
    </g>
    <g id="patch_5">
-    <path clip-path="url(#p94701a8de4)" d="
-M509.76 38.285
-C510.404 38.285 511.023 38.0432 511.478 37.6128
-C511.934 37.1824 512.19 36.5986 512.19 35.99
-C512.19 35.3814 511.934 34.7976 511.478 34.3672
-C511.023 33.9368 510.404 33.695 509.76 33.695
-C509.116 33.695 508.497 33.9368 508.042 34.3672
-C507.586 34.7976 507.33 35.3814 507.33 35.99
-C507.33 36.5986 507.586 37.1824 508.042 37.6128
-C508.497 38.0432 509.116 38.285 509.76 38.285
+    <path clip-path="url(#pbae16912ee)" d="
+M509.76 36.0175
+C510.404 36.0175 511.023 35.797 511.478 35.4046
+C511.934 35.0122 512.19 34.4799 512.19 33.925
+C512.19 33.3701 511.934 32.8378 511.478 32.4454
+C511.023 32.053 510.404 31.8325 509.76 31.8325
+C509.116 31.8325 508.497 32.053 508.042 32.4454
+C507.586 32.8378 507.33 33.3701 507.33 33.925
+C507.33 34.4799 507.586 35.0122 508.042 35.4046
+C508.497 35.797 509.116 36.0175 509.76 36.0175
 z
 " style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
    </g>
@@ -1521,7 +1364,7 @@ Q64.4531 10.9844 57.9062 10.9844
 Q53.3281 10.9844 49.6875 13.8906
 Q46.0469 16.7969 42.1875 23.5781" id="BitstreamVeraSans-Roman-221e"/>
     </defs>
-    <g transform="translate(7.2 24.235)scale(0.16 -0.16)">
+    <g transform="translate(7.2 22.6425)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
      <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-221e"/>
      <use transform="translate(119.39453125 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
@@ -1530,18 +1373,46 @@ Q46.0469 16.7969 42.1875 23.5781" id="BitstreamVeraSans-Roman-221e"/>
     </g>
    </g>
    <g id="text_2">
-    <!-- $R_{conv,0}$ -->
+    <!-- $R_{conv.0}$ -->
     <defs>
      <path d="
-M2.98438 54.6875
-L12.5 54.6875
-L29.5938 8.79688
-L46.6875 54.6875
-L56.2031 54.6875
-L35.6875 0
-L23.4844 0
-z
-" id="BitstreamVeraSans-Roman-76"/>
+M31.7812 66.4062
+Q24.1719 66.4062 20.3281 58.9062
+Q16.5 51.4219 16.5 36.375
+Q16.5 21.3906 20.3281 13.8906
+Q24.1719 6.39062 31.7812 6.39062
+Q39.4531 6.39062 43.2812 13.8906
+Q47.125 21.3906 47.125 36.375
+Q47.125 51.4219 43.2812 58.9062
+Q39.4531 66.4062 31.7812 66.4062
+M31.7812 74.2188
+Q44.0469 74.2188 50.5156 64.5156
+Q56.9844 54.8281 56.9844 36.375
+Q56.9844 17.9688 50.5156 8.26562
+Q44.0469 -1.42188 31.7812 -1.42188
+Q19.5312 -1.42188 13.0625 8.26562
+Q6.59375 17.9688 6.59375 36.375
+Q6.59375 54.8281 13.0625 64.5156
+Q19.5312 74.2188 31.7812 74.2188" id="BitstreamVeraSans-Roman-30"/>
+     <path d="
+M30.6094 48.3906
+Q23.3906 48.3906 19.1875 42.75
+Q14.9844 37.1094 14.9844 27.2969
+Q14.9844 17.4844 19.1562 11.8438
+Q23.3438 6.20312 30.6094 6.20312
+Q37.7969 6.20312 41.9844 11.8594
+Q46.1875 17.5312 46.1875 27.2969
+Q46.1875 37.0156 41.9844 42.7031
+Q37.7969 48.3906 30.6094 48.3906
+M30.6094 56
+Q42.3281 56 49.0156 48.375
+Q55.7188 40.7656 55.7188 27.2969
+Q55.7188 13.875 49.0156 6.21875
+Q42.3281 -1.42188 30.6094 -1.42188
+Q18.8438 -1.42188 12.1719 6.21875
+Q5.51562 13.875 5.51562 27.2969
+Q5.51562 40.7656 12.1719 48.375
+Q18.8438 56 30.6094 56" id="BitstreamVeraSans-Roman-6f"/>
      <path d="
 M44.3906 34.1875
 Q47.5625 33.1094 50.5625 29.5938
@@ -1570,43 +1441,22 @@ Q39.2031 64.7969 32.0781 64.7969
 z
 " id="BitstreamVeraSans-Roman-52"/>
      <path d="
-M30.6094 48.3906
-Q23.3906 48.3906 19.1875 42.75
-Q14.9844 37.1094 14.9844 27.2969
-Q14.9844 17.4844 19.1562 11.8438
-Q23.3438 6.20312 30.6094 6.20312
-Q37.7969 6.20312 41.9844 11.8594
-Q46.1875 17.5312 46.1875 27.2969
-Q46.1875 37.0156 41.9844 42.7031
-Q37.7969 48.3906 30.6094 48.3906
-M30.6094 56
-Q42.3281 56 49.0156 48.375
-Q55.7188 40.7656 55.7188 27.2969
-Q55.7188 13.875 49.0156 6.21875
-Q42.3281 -1.42188 30.6094 -1.42188
-Q18.8438 -1.42188 12.1719 6.21875
-Q5.51562 13.875 5.51562 27.2969
-Q5.51562 40.7656 12.1719 48.375
-Q18.8438 56 30.6094 56" id="BitstreamVeraSans-Roman-6f"/>
+M10.6875 12.4062
+L21 12.4062
+L21 0
+L10.6875 0
+z
+" id="BitstreamVeraSans-Roman-2e"/>
      <path d="
-M31.7812 66.4062
-Q24.1719 66.4062 20.3281 58.9062
-Q16.5 51.4219 16.5 36.375
-Q16.5 21.3906 20.3281 13.8906
-Q24.1719 6.39062 31.7812 6.39062
-Q39.4531 6.39062 43.2812 13.8906
-Q47.125 21.3906 47.125 36.375
-Q47.125 51.4219 43.2812 58.9062
-Q39.4531 66.4062 31.7812 66.4062
-M31.7812 74.2188
-Q44.0469 74.2188 50.5156 64.5156
-Q56.9844 54.8281 56.9844 36.375
-Q56.9844 17.9688 50.5156 8.26562
-Q44.0469 -1.42188 31.7812 -1.42188
-Q19.5312 -1.42188 13.0625 8.26562
-Q6.59375 17.9688 6.59375 36.375
-Q6.59375 54.8281 13.0625 64.5156
-Q19.5312 74.2188 31.7812 74.2188" id="BitstreamVeraSans-Roman-30"/>
+M2.98438 54.6875
+L12.5 54.6875
+L29.5938 8.79688
+L46.6875 54.6875
+L56.2031 54.6875
+L35.6875 0
+L23.4844 0
+z
+" id="BitstreamVeraSans-Roman-76"/>
      <path d="
 M48.7812 52.5938
 L48.7812 44.1875
@@ -1628,26 +1478,26 @@ Q20.2188 56 33.0156 56
 Q37.1562 56 41.1094 55.1406
 Q45.0625 54.2969 48.7812 52.5938" id="BitstreamVeraSans-Roman-63"/>
     </defs>
-    <g transform="translate(47.96 18.88)scale(0.16 -0.16)">
+    <g transform="translate(48.2 18.88)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
      <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
      <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
      <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
      <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-76"/>
-     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(260.232421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
+     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2e"/>
+     <use transform="translate(257.432421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
     </g>
    </g>
    <g id="text_3">
     <!-- $T_{in}$ -->
-    <g transform="translate(110.96 25.515)scale(0.16 -0.16)">
+    <g transform="translate(110.96 23.9225)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
      <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-69"/>
      <use transform="translate(80.5322265625 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
     </g>
    </g>
    <g id="text_4">
-    <!-- $R_{cond,0}$ -->
+    <!-- $R_{cond.0}$ -->
     <defs>
      <path d="
 M45.4062 46.3906
@@ -1674,18 +1524,18 @@ Q37.2031 48.4844 30.0781 48.4844
 Q22.9531 48.4844 18.875 42.8438
 Q14.7969 37.2031 14.7969 27.2969" id="BitstreamVeraSans-Roman-64"/>
     </defs>
-    <g transform="translate(144.92 18.88)scale(0.16 -0.16)">
+    <g transform="translate(145.16 18.88)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
      <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
      <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
      <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
      <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-64"/>
-     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(263.240234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
+     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2e"/>
+     <use transform="translate(260.440234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
     </g>
    </g>
    <g id="text_5">
-    <!-- $R_{cond,1}$ -->
+    <!-- $R_{cond.1}$ -->
     <defs>
      <path d="
 M12.4062 8.29688
@@ -1702,18 +1552,18 @@ L12.4062 0
 z
 " id="BitstreamVeraSans-Roman-31"/>
     </defs>
-    <g transform="translate(242.12 18.88)scale(0.16 -0.16)">
+    <g transform="translate(242.36 18.88)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
      <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
      <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
      <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
      <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-64"/>
-     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(263.240234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-31"/>
+     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2e"/>
+     <use transform="translate(260.440234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-31"/>
     </g>
    </g>
    <g id="text_6">
-    <!-- $R_{cond,2}$ -->
+    <!-- $R_{cond.2}$ -->
     <defs>
      <path d="
 M19.1875 8.29688
@@ -1739,14 +1589,14 @@ Q49.8594 40.875 45.4062 35.4062
 Q44.1875 33.9844 37.6406 27.2188
 Q31.1094 20.4531 19.1875 8.29688" id="BitstreamVeraSans-Roman-32"/>
     </defs>
-    <g transform="translate(339.32 18.88)scale(0.16 -0.16)">
+    <g transform="translate(339.56 18.88)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
      <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
      <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
      <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
      <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-64"/>
-     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(263.240234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-32"/>
+     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2e"/>
+     <use transform="translate(260.440234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-32"/>
     </g>
    </g>
    <g id="text_7">
@@ -1792,7 +1642,7 @@ Q33.4062 -1.42188 27.6875 -1.42188
 Q18.2656 -1.42188 13.375 4.4375
 Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
     </defs>
-    <g transform="translate(398.48 25.355)scale(0.16 -0.16)">
+    <g transform="translate(398.48 23.7625)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
      <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
      <use transform="translate(103.911132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-75"/>
@@ -1800,20 +1650,20 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
     </g>
    </g>
    <g id="text_8">
-    <!-- $R_{conv,1}$ -->
-    <g transform="translate(436.76 18.88)scale(0.16 -0.16)">
+    <!-- $R_{conv.1}$ -->
+    <g transform="translate(437.0 18.88)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
      <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
      <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
      <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
      <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-76"/>
-     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(260.232421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-31"/>
+     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2e"/>
+     <use transform="translate(257.432421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-31"/>
     </g>
    </g>
    <g id="text_9">
     <!-- $T_{\infty,out}$ -->
-    <g transform="translate(489.12 24.235)scale(0.16 -0.16)">
+    <g transform="translate(489.12 22.6425)scale(0.16 -0.16)">
      <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
      <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-221e"/>
      <use transform="translate(119.39453125 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
@@ -1825,8 +1675,8 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
   </g>
  </g>
  <defs>
-  <clipPath id="p94701a8de4">
-   <rect height="21.42" width="497.34" x="18.09" y="25.28"/>
+  <clipPath id="pbae16912ee">
+   <rect height="19.53" width="497.34" x="18.09" y="24.16"/>
   </clipPath>
  </defs>
 </svg>
@@ -1841,34 +1691,23 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.constants.constants</span> <span class="kn">import</span> <span class="n">C2K</span>
-<span class="kn">from</span> <span class="nn">scipy.constants.constants</span> <span class="kn">import</span> <span class="n">K2C</span>
-<span class="kn">from</span> <span class="nn">scipy.constants.constants</span> <span class="kn">import</span> <span class="n">F2K</span>
-<span class="kn">from</span> <span class="nn">scipy.constants.constants</span> <span class="kn">import</span> <span class="n">K2F</span>
-<span class="n">gas</span> <span class="o">=</span> <span class="n">thermo</span><span class="o">.</span><span class="n">Fluid</span><span class="p">(</span><span class="s">&#39;krypton&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">gas</span> <span class="o">=</span> <span class="n">thermo</span><span class="o">.</span><span class="n">Fluid</span><span class="p">(</span><span class="s">&#39;air&#39;</span><span class="p">)</span>
 <span class="n">T_f</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">T_inf_in</span><span class="o">+</span><span class="n">T_inf_out</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">T_f</span><span class="p">)</span>
-<span class="n">gas</span><span class="o">.</span><span class="n">get_properties</span><span class="p">(</span><span class="n">C2K</span><span class="p">(</span><span class="mf">3.9</span><span class="p">))</span>
-<span class="n">k_gas</span> <span class="o">=</span> <span class="n">gas</span><span class="o">.</span><span class="n">k</span>
-<span class="n">h_gas</span> <span class="o">=</span> <span class="mf">8e-3</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_gas</span><span class="p">,</span><span class="n">h_gas</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_1</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;Fluid temperature in the gas space: </span><span class="si">%3.3f</span><span class="s"> C&quot;</span> <span class="o">%</span><span class="k">T_f</span>)
+<span class="n">gas</span><span class="o">.</span><span class="n">get_properties</span><span class="p">(</span><span class="n">C2K</span><span class="p">(</span><span class="n">T_f</span><span class="p">))</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;h_{c.i}&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.\infty}&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.glass}&#39;</span><span class="p">)</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">t_glass</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;k_{glass}&#39;</span><span class="p">,</span><span class="s">&#39;t_{glass}&#39;</span><span class="p">,</span><span class="s">&#39;none&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.glass}&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.gas}&#39;</span><span class="p">)</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">gas</span><span class="o">.</span><span class="n">k</span><span class="p">,</span><span class="n">t_gas</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;k_{gas}&#39;</span><span class="p">,</span><span class="s">&#39;t_{gas}&#39;</span><span class="p">,</span><span class="s">&#39;none&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{in.gas}&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.gas}&#39;</span><span class="p">)</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">t_glass</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;k_{glass}&#39;</span><span class="p">,</span><span class="s">&#39;t_{glass}&#39;</span><span class="p">,</span><span class="s">&#39;none&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.gas}&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.glass}&#39;</span><span class="p">)</span>
+<span class="n">Rth</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_1</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;h_{c.out}&#39;</span><span class="p">,</span><span class="s">&#39;A&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.\infty}&#39;</span><span class="p">,</span><span class="s">&#39;T_{out.glass}&#39;</span><span class="p">)</span>
 
-<span class="n">Rtotal</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">serial_sum</span><span class="p">(</span><span class="n">Rth</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">Rtotal</span><span class="p">)</span>
-<span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">)</span><span class="o">/</span><span class="n">Rtotal</span>
-<span class="n">T_in</span> <span class="o">=</span> <span class="n">T_inf_in</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="n">T_0</span> <span class="o">=</span> <span class="n">T_in</span> <span class="o">-</span> <span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="n">T_1</span> <span class="o">=</span> <span class="n">T_0</span> <span class="o">-</span> <span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="k">print</span><span class="p">(</span><span class="n">T_in</span><span class="p">,</span><span class="n">T_0</span><span class="p">,</span><span class="n">T_1</span><span class="p">,</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">T_0</span><span class="o">+</span><span class="n">T_1</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="c">#Verification of equations:</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Thermal element # </span><span class="si">%2i</span><span class="s">&quot;</span> <span class="o">%</span><span class="k">i</span>)
+    <span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">display_equation</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1881,10 +1720,169 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>5.0
-0.883004391282
-(17.168757002021742, 16.878373104793202, -9.0018053532768931, 3.9382838757581542)
-33.9749159757
+<pre>Fluid temperature in the gas space: 5.000 C
+Thermal element #  0
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{0} = \frac{1}{R_{{conv.0}}} \left(T_{{in.\infty}} - T_{{in.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{0} = A h_{{c.i}} \left(T_{{in.\infty}} - T_{{in.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  1
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{1} = \frac{1}{R_{{cond.0}}} \left(- T_{{in.gas}} + T_{{in.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{1} = \frac{A k_{{glass}}}{t_{{glass}}} \left(- T_{{in.gas}} + T_{{in.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  2
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{2} = \frac{1}{R_{{cond.1}}} \left(T_{{in.gas}} - T_{{out.gas}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{2} = \frac{A k_{{gas}}}{t_{{gas}}} \left(T_{{in.gas}} - T_{{out.gas}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  3
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{3} = \frac{1}{R_{{cond.2}}} \left(T_{{out.gas}} - T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{3} = \frac{A k_{{glass}}}{t_{{glass}}} \left(T_{{out.gas}} - T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Thermal element #  4
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{4} = \frac{1}{R_{{conv.1}}} \left(T_{{out.\infty}} - T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$q_{4} = A h_{{c.out}} \left(T_{{out.\infty}} - T_{{out.glass}}\right)$$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">Rtotal</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">serial_sum</span><span class="p">(</span><span class="n">Rth</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Total thermal resistance: </span><span class="si">%3.3f</span><span class="s">&#39;</span> <span class="o">%</span><span class="k">Rtotal</span>)
+<span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">)</span><span class="o">/</span><span class="n">Rtotal</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Heat transfer: </span><span class="si">%4.2f</span><span class="s"> W&#39;</span> <span class="o">%</span><span class="k">q</span>)
+<span class="n">T_in</span> <span class="o">=</span> <span class="n">T_inf_in</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Surface temperature of the window (inside): </span><span class="si">%3.1f</span><span class="s"> F&#39;</span> <span class="o">%</span><span class="k">C2F</span>(T_in))
+<span class="n">T_out</span> <span class="o">=</span> <span class="n">T_in</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Surface temperature of the window (inside): </span><span class="si">%3.1f</span><span class="s"> F&#39;</span> <span class="o">%</span><span class="k">C2F</span>(T_out))
+<span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">)</span><span class="o">/</span><span class="n">Rtotal</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T_inf_in</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Rth</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
+<span class="n">T_air</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total thermal resistance: 0.392
+Heat transfer: 76.59 W
+Surface temperature of the window (inside): 56.5 F
+Surface temperature of the window (inside): 55.3 F
 </pre>
 </div>
 </div>
@@ -1895,51 +1893,18 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">Libraries</span> <span class="kn">import</span> <span class="n">HT_natural_convection_enclosure</span> <span class="k">as</span> <span class="n">ncconvenc</span>
-<span class="n">t</span> <span class="o">=</span> <span class="mf">0.008</span>
-<span class="n">H</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="n">T_f</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">T_inf_in</span><span class="o">+</span><span class="n">T_inf_out</span><span class="p">)</span>
-<span class="n">air</span> <span class="o">=</span> <span class="n">thermo</span><span class="o">.</span><span class="n">Fluid</span><span class="p">(</span><span class="s">&#39;air&#39;</span><span class="p">)</span>
-<span class="n">air</span><span class="o">.</span><span class="n">get_properties</span><span class="p">(</span><span class="n">C2K</span><span class="p">(</span><span class="n">T_f</span><span class="p">))</span>
-<span class="n">Ra_H</span> <span class="o">=</span> <span class="n">ncconvenc</span><span class="o">.</span><span class="n">Ra</span><span class="p">(</span><span class="mf">9.81</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
-<span class="n">Nu</span> <span class="o">=</span> <span class="n">ncconvenc</span><span class="o">.</span><span class="n">Nu_vertical_enclosure</span><span class="p">(</span><span class="n">Ra_H</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">Pr</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">H</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">Ra_H</span><span class="p">,</span><span class="n">Nu</span><span class="p">)</span>
-<span class="n">h</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">k</span><span class="o">*</span><span class="n">Nu</span><span class="o">/</span><span class="n">H</span>
-<span class="k">print</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
-<span class="n">Rth</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv,0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond,0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv,0}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{cond,1}$&#39;</span><span class="p">))</span>
-<span class="n">Rth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">Resistance</span><span class="p">(</span><span class="s">&#39;$R_{conv,1}$&#39;</span><span class="p">))</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_{\infty,in}$&#39;</span><span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_{in}$&#39;</span><span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_{out}$&#39;</span><span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Rth</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">e</span><span class="o">.</span><span class="n">DOT</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_{\infty,out}$&#39;</span><span class="p">)</span>
-<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_0</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">conduction</span><span class="p">(</span><span class="s">&#39;plane&#39;</span><span class="p">,</span><span class="n">k_glass</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">Rth</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">convection</span><span class="p">(</span><span class="n">h_1</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-
-<span class="n">Rtotal</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">serial_sum</span><span class="p">(</span><span class="n">Rth</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">Rtotal</span><span class="p">)</span>
-<span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">)</span><span class="o">/</span><span class="n">Rtotal</span>
-<span class="n">T_in</span> <span class="o">=</span> <span class="n">T_inf_in</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="n">T_0</span> <span class="o">=</span> <span class="n">T_in</span> <span class="o">-</span> <span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="n">T_1</span> <span class="o">=</span> <span class="n">T_0</span> <span class="o">-</span> <span class="n">q</span><span class="o">*</span><span class="n">Rth</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">R</span>
-<span class="k">print</span><span class="p">(</span><span class="n">T_in</span><span class="p">,</span><span class="n">T_0</span><span class="p">,</span><span class="n">T_1</span><span class="p">,</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">T_0</span><span class="o">+</span><span class="n">T_1</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">100.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">,</span> <span class="mf">16.</span><span class="p">,</span> <span class="mf">24.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">T_air</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="s">&#39;ko-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">&#39;air&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">T_argon</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="s">&#39;bo-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">&#39;argon&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">T_krypton</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="s">&#39;ro-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">&#39;krypton&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;$x$ ($mm$)&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span> <span class="n">font</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$T$ ($^\circ C$)&#39;</span><span class="p">,</span> <span class="n">fontdict</span> <span class="o">=</span> <span class="n">font</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1951,25 +1916,13 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>ok
-(497505.78966666822, 4.8354664449585139)
-2.38388495736
-0.470830125339
-(14.690229308927584, 14.145637443176568, -8.1279654614808798, 3.0088359908478441)
-63.7172482929
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
 
 <div class="output_svg output_subarea ">
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (http://matplotlib.org/) -->
-<svg height="53pt" version="1.1" viewBox="0 0 537 53" width="537pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="323pt" version="1.1" viewBox="0 0 481 323" width="481pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
 *{stroke-linecap:butt;stroke-linejoin:round;}
@@ -1978,309 +1931,149 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
  <g id="figure_1">
   <g id="patch_1">
    <path d="
-M0 53.9
-L537.6 53.9
-L537.6 -7.10543e-15
-L0 -7.10543e-15
-L0 53.9" style="fill:none;"/>
+M0 323.048
+L481.994 323.048
+L481.994 0
+L0 0
+L0 323.048" style="fill:none;"/>
   </g>
   <g id="axes_1">
-   <g id="line2d_1">
-    <path clip-path="url(#p94701a8de4)" d="
-M23.76 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_2">
-    <path clip-path="url(#p94701a8de4)" d="
-M23.76 35.99
-L56.16 35.99
-L58.86 28.34
-L64.26 43.64
-L69.66 28.34
-L75.06 43.64
-L80.46 28.34
-L85.86 43.64
-L88.56 35.99
-L120.96 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_3">
-    <path clip-path="url(#p94701a8de4)" d="
-M120.96 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_4">
-    <path clip-path="url(#p94701a8de4)" d="
-M120.96 35.99
-L153.36 35.99
-L156.06 28.34
-L161.46 43.64
-L166.86 28.34
-L172.26 43.64
-L177.66 28.34
-L183.06 43.64
-L185.76 35.99
-L218.16 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_5">
-    <path clip-path="url(#p94701a8de4)" d="
-M218.16 35.99
-L250.56 35.99
-L253.26 28.34
-L258.66 43.64
-L264.06 28.34
-L269.46 43.64
-L274.86 28.34
-L280.26 43.64
-L282.96 35.99
-L315.36 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_6">
-    <path clip-path="url(#p94701a8de4)" d="
-M315.36 35.99
-L347.76 35.99
-L350.46 28.34
-L355.86 43.64
-L361.26 28.34
-L366.66 43.64
-L372.06 28.34
-L377.46 43.64
-L380.16 35.99
-L412.56 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_7">
-    <path clip-path="url(#p94701a8de4)" d="
-M412.56 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_8">
-    <path clip-path="url(#p94701a8de4)" d="
-M412.56 35.99
-L444.96 35.99
-L447.66 28.34
-L453.06 43.64
-L458.46 28.34
-L463.86 43.64
-L469.26 28.34
-L474.66 43.64
-L477.36 35.99
-L509.76 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
-   <g id="line2d_9">
-    <path clip-path="url(#p94701a8de4)" d="
-M509.76 35.99" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
-   </g>
    <g id="patch_2">
-    <path clip-path="url(#p94701a8de4)" d="
-M23.76 38.285
-C24.4044 38.285 25.0226 38.0432 25.4783 37.6128
-C25.934 37.1824 26.19 36.5986 26.19 35.99
-C26.19 35.3814 25.934 34.7976 25.4783 34.3672
-C25.0226 33.9368 24.4044 33.695 23.76 33.695
-C23.1156 33.695 22.4974 33.9368 22.0417 34.3672
-C21.586 34.7976 21.33 35.3814 21.33 35.99
-C21.33 36.5986 21.586 37.1824 22.0417 37.6128
-C22.4974 38.0432 23.1156 38.285 23.76 38.285
+    <path d="
+M64.6306 273.942
+L453.431 273.942
+L453.431 50.742
+L64.6306 50.742
 z
-" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
+" style="fill:#ffffff;"/>
    </g>
-   <g id="patch_3">
-    <path clip-path="url(#p94701a8de4)" d="
-M120.96 38.285
-C121.604 38.285 122.223 38.0432 122.678 37.6128
-C123.134 37.1824 123.39 36.5986 123.39 35.99
-C123.39 35.3814 123.134 34.7976 122.678 34.3672
-C122.223 33.9368 121.604 33.695 120.96 33.695
-C120.316 33.695 119.697 33.9368 119.242 34.3672
-C118.786 34.7976 118.53 35.3814 118.53 35.99
-C118.53 36.5986 118.786 37.1824 119.242 37.6128
-C119.697 38.0432 120.316 38.285 120.96 38.285
-z
-" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
-   </g>
-   <g id="patch_4">
-    <path clip-path="url(#p94701a8de4)" d="
-M412.56 38.285
-C413.204 38.285 413.823 38.0432 414.278 37.6128
-C414.734 37.1824 414.99 36.5986 414.99 35.99
-C414.99 35.3814 414.734 34.7976 414.278 34.3672
-C413.823 33.9368 413.204 33.695 412.56 33.695
-C411.916 33.695 411.297 33.9368 410.842 34.3672
-C410.386 34.7976 410.13 35.3814 410.13 35.99
-C410.13 36.5986 410.386 37.1824 410.842 37.6128
-C411.297 38.0432 411.916 38.285 412.56 38.285
-z
-" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
-   </g>
-   <g id="patch_5">
-    <path clip-path="url(#p94701a8de4)" d="
-M509.76 38.285
-C510.404 38.285 511.023 38.0432 511.478 37.6128
-C511.934 37.1824 512.19 36.5986 512.19 35.99
-C512.19 35.3814 511.934 34.7976 511.478 34.3672
-C511.023 33.9368 510.404 33.695 509.76 33.695
-C509.116 33.695 508.497 33.9368 508.042 34.3672
-C507.586 34.7976 507.33 35.3814 507.33 35.99
-C507.33 36.5986 507.586 37.1824 508.042 37.6128
-C508.497 38.0432 509.116 38.285 509.76 38.285
-z
-" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
-   </g>
-   <g id="text_1">
-    <!-- $T_{\infty,in}$ -->
+   <g id="line2d_1">
+    <path clip-path="url(#pb2253cdb5c)" d="
+M64.6306 98.2257
+L189.047 103.096
+L313.463 257.201
+L437.879 262.071" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-width:2;"/>
     <defs>
      <path d="
-M54.8906 33.0156
-L54.8906 0
-L45.9062 0
-L45.9062 32.7188
-Q45.9062 40.4844 42.875 44.3281
-Q39.8438 48.1875 33.7969 48.1875
-Q26.5156 48.1875 22.3125 43.5469
-Q18.1094 38.9219 18.1094 30.9062
-L18.1094 0
-L9.07812 0
-L9.07812 54.6875
-L18.1094 54.6875
-L18.1094 46.1875
-Q21.3438 51.125 25.7031 53.5625
-Q30.0781 56 35.7969 56
-Q45.2188 56 50.0469 50.1719
-Q54.8906 44.3438 54.8906 33.0156" id="BitstreamVeraSans-Roman-6e"/>
-     <path d="
-M9.42188 54.6875
-L18.4062 54.6875
-L18.4062 0
-L9.42188 0
+M0 3
+C0.795609 3 1.55874 2.6839 2.12132 2.12132
+C2.6839 1.55874 3 0.795609 3 0
+C3 -0.795609 2.6839 -1.55874 2.12132 -2.12132
+C1.55874 -2.6839 0.795609 -3 0 -3
+C-0.795609 -3 -1.55874 -2.6839 -2.12132 -2.12132
+C-2.6839 -1.55874 -3 -0.795609 -3 0
+C-3 0.795609 -2.6839 1.55874 -2.12132 2.12132
+C-1.55874 2.6839 -0.795609 3 0 3
 z
-
-M9.42188 75.9844
-L18.4062 75.9844
-L18.4062 64.5938
-L9.42188 64.5938
-z
-" id="BitstreamVeraSans-Roman-69"/>
-     <path d="
-M11.7188 12.4062
-L22.0156 12.4062
-L22.0156 4
-L14.0156 -11.625
-L7.71875 -11.625
-L11.7188 4
-z
-" id="BitstreamVeraSans-Roman-2c"/>
-     <path d="
-M-0.296875 72.9062
-L61.375 72.9062
-L61.375 64.5938
-L35.5 64.5938
-L35.5 0
-L25.5938 0
-L25.5938 64.5938
-L-0.296875 64.5938
-z
-" id="BitstreamVeraSans-Roman-54"/>
-     <path d="
-M44.6719 27.2969
-Q47.0781 23 50.3438 20.7969
-Q53.6094 18.6094 57.7188 18.6094
-Q62.6406 18.6094 65.7656 21.9062
-Q68.8906 25.2031 68.8906 30.3281
-Q68.8906 35.25 66.0156 38.5156
-Q63.1406 41.7969 58.7969 41.7969
-Q54.7812 41.7969 51.5312 38.5
-Q48.2969 35.2031 44.6719 27.2969
-M38.7188 32.5156
-Q36.3281 36.8125 33.0781 38.9531
-Q29.8281 41.1094 25.6875 41.1094
-Q20.7031 41.1094 17.5938 37.8906
-Q14.5 34.6719 14.5 29.5
-Q14.5 24.5625 17.375 21.2812
-Q20.2656 18.0156 24.6094 18.0156
-Q28.6094 18.0156 31.875 21.3281
-Q35.1562 24.6562 38.7188 32.5156
-M42.1875 23.5781
-Q38.7656 17 34.9375 13.8906
-Q31.1094 10.7969 26.5156 10.7969
-Q19.875 10.7969 15.3281 16.2344
-Q10.7969 21.6875 10.7969 29.7812
-Q10.7969 38.3281 14.875 43.5938
-Q18.9531 48.875 25.4844 48.875
-Q30.125 48.875 33.8594 45.7969
-Q37.5938 42.7188 41.1094 35.9844
-Q44.4375 42.7188 48.2969 45.9219
-Q52.1562 49.125 56.8906 49.125
-Q63.4219 49.125 68.0156 43.625
-Q72.6094 38.1406 72.6094 29.9844
-Q72.6094 21.4375 68.5312 16.2031
-Q64.4531 10.9844 57.9062 10.9844
-Q53.3281 10.9844 49.6875 13.8906
-Q46.0469 16.7969 42.1875 23.5781" id="BitstreamVeraSans-Roman-221e"/>
+" id="m8b0675cc3b" style="stroke:#000000;stroke-width:0.5;"/>
     </defs>
-    <g transform="translate(7.2 24.235)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
-     <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-221e"/>
-     <use transform="translate(119.39453125 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(143.040039062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-69"/>
-     <use transform="translate(162.48828125 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
+    <g clip-path="url(#pb2253cdb5c)">
+     <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m8b0675cc3b" y="98.2256605249"/>
+     <use style="stroke:#000000;stroke-width:0.5;" x="189.046625" xlink:href="#m8b0675cc3b" y="103.095779553"/>
+     <use style="stroke:#000000;stroke-width:0.5;" x="313.462625" xlink:href="#m8b0675cc3b" y="257.200965841"/>
+     <use style="stroke:#000000;stroke-width:0.5;" x="437.878625" xlink:href="#m8b0675cc3b" y="262.071084869"/>
     </g>
    </g>
-   <g id="text_2">
-    <!-- $R_{conv,0}$ -->
+   <g id="line2d_2">
+    <path clip-path="url(#pb2253cdb5c)" d="
+M64.6306 86.3573
+L189.047 90.0101
+L313.463 261.385
+L437.879 265.038" style="fill:none;stroke:#0000ff;stroke-linecap:square;stroke-width:2;"/>
     <defs>
      <path d="
-M2.98438 54.6875
-L12.5 54.6875
-L29.5938 8.79688
-L46.6875 54.6875
-L56.2031 54.6875
-L35.6875 0
-L23.4844 0
+M0 3
+C0.795609 3 1.55874 2.6839 2.12132 2.12132
+C2.6839 1.55874 3 0.795609 3 0
+C3 -0.795609 2.6839 -1.55874 2.12132 -2.12132
+C1.55874 -2.6839 0.795609 -3 0 -3
+C-0.795609 -3 -1.55874 -2.6839 -2.12132 -2.12132
+C-2.6839 -1.55874 -3 -0.795609 -3 0
+C-3 0.795609 -2.6839 1.55874 -2.12132 2.12132
+C-1.55874 2.6839 -0.795609 3 0 3
 z
-" id="BitstreamVeraSans-Roman-76"/>
+" id="mf1e9a9e4ae" style="stroke:#000000;stroke-width:0.5;"/>
+    </defs>
+    <g clip-path="url(#pb2253cdb5c)">
+     <use style="fill:#0000ff;stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#mf1e9a9e4ae" y="86.3572965027"/>
+     <use style="fill:#0000ff;stroke:#000000;stroke-width:0.5;" x="189.046625" xlink:href="#mf1e9a9e4ae" y="90.0101474261"/>
+     <use style="fill:#0000ff;stroke:#000000;stroke-width:0.5;" x="313.462625" xlink:href="#mf1e9a9e4ae" y="261.385324951"/>
+     <use style="fill:#0000ff;stroke:#000000;stroke-width:0.5;" x="437.878625" xlink:href="#mf1e9a9e4ae" y="265.038175874"/>
+    </g>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#pb2253cdb5c)" d="
+M64.6306 71.8726
+L189.047 74.0399
+L313.463 266.492
+L437.879 268.659" style="fill:none;stroke:#ff0000;stroke-linecap:square;stroke-width:2;"/>
+    <defs>
      <path d="
-M44.3906 34.1875
-Q47.5625 33.1094 50.5625 29.5938
-Q53.5625 26.0781 56.5938 19.9219
-L66.6094 0
-L56 0
-L46.6875 18.7031
-Q43.0625 26.0312 39.6719 28.4219
-Q36.2812 30.8125 30.4219 30.8125
-L19.6719 30.8125
-L19.6719 0
-L9.8125 0
-L9.8125 72.9062
-L32.0781 72.9062
-Q44.5781 72.9062 50.7344 67.6719
-Q56.8906 62.4531 56.8906 51.9062
-Q56.8906 45.0156 53.6875 40.4688
-Q50.4844 35.9375 44.3906 34.1875
-M19.6719 64.7969
-L19.6719 38.9219
-L32.0781 38.9219
-Q39.2031 38.9219 42.8438 42.2188
-Q46.4844 45.5156 46.4844 51.9062
-Q46.4844 58.2969 42.8438 61.5469
-Q39.2031 64.7969 32.0781 64.7969
+M0 3
+C0.795609 3 1.55874 2.6839 2.12132 2.12132
+C2.6839 1.55874 3 0.795609 3 0
+C3 -0.795609 2.6839 -1.55874 2.12132 -2.12132
+C1.55874 -2.6839 0.795609 -3 0 -3
+C-0.795609 -3 -1.55874 -2.6839 -2.12132 -2.12132
+C-2.6839 -1.55874 -3 -0.795609 -3 0
+C-3 0.795609 -2.6839 1.55874 -2.12132 2.12132
+C-1.55874 2.6839 -0.795609 3 0 3
 z
-" id="BitstreamVeraSans-Roman-52"/>
-     <path d="
-M30.6094 48.3906
-Q23.3906 48.3906 19.1875 42.75
-Q14.9844 37.1094 14.9844 27.2969
-Q14.9844 17.4844 19.1562 11.8438
-Q23.3438 6.20312 30.6094 6.20312
-Q37.7969 6.20312 41.9844 11.8594
-Q46.1875 17.5312 46.1875 27.2969
-Q46.1875 37.0156 41.9844 42.7031
-Q37.7969 48.3906 30.6094 48.3906
-M30.6094 56
-Q42.3281 56 49.0156 48.375
-Q55.7188 40.7656 55.7188 27.2969
-Q55.7188 13.875 49.0156 6.21875
-Q42.3281 -1.42188 30.6094 -1.42188
-Q18.8438 -1.42188 12.1719 6.21875
-Q5.51562 13.875 5.51562 27.2969
-Q5.51562 40.7656 12.1719 48.375
-Q18.8438 56 30.6094 56" id="BitstreamVeraSans-Roman-6f"/>
-     <path d="
+" id="md175be6dbf" style="stroke:#000000;stroke-width:0.5;"/>
+    </defs>
+    <g clip-path="url(#pb2253cdb5c)">
+     <use style="fill:#ff0000;stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#md175be6dbf" y="71.8726185577"/>
+     <use style="fill:#ff0000;stroke:#000000;stroke-width:0.5;" x="189.046625" xlink:href="#md175be6dbf" y="74.0398614867"/>
+     <use style="fill:#ff0000;stroke:#000000;stroke-width:0.5;" x="313.462625" xlink:href="#md175be6dbf" y="266.492102432"/>
+     <use style="fill:#ff0000;stroke:#000000;stroke-width:0.5;" x="437.878625" xlink:href="#md175be6dbf" y="268.659345361"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="
+M64.6306 50.742
+L453.431 50.742" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;"/>
+   </g>
+   <g id="patch_4">
+    <path d="
+M453.431 273.942
+L453.431 50.742" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;"/>
+   </g>
+   <g id="patch_5">
+    <path d="
+M64.6306 273.942
+L453.431 273.942" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;"/>
+   </g>
+   <g id="patch_6">
+    <path d="
+M64.6306 273.942
+L64.6306 50.742" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_4">
+      <defs>
+       <path d="
+M0 0
+L0 -4" id="m93b0483c22" style="stroke:#000000;stroke-width:0.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m93b0483c22" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_5">
+      <defs>
+       <path d="
+M0 0
+L0 4" id="m741efc42ff" style="stroke:#000000;stroke-width:0.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m741efc42ff" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- 0 -->
+      <defs>
+       <path d="
 M31.7812 66.4062
 Q24.1719 66.4062 20.3281 58.9062
 Q16.5 51.4219 16.5 36.375
@@ -2299,99 +2092,72 @@ Q19.5312 -1.42188 13.0625 8.26562
 Q6.59375 17.9688 6.59375 36.375
 Q6.59375 54.8281 13.0625 64.5156
 Q19.5312 74.2188 31.7812 74.2188" id="BitstreamVeraSans-Roman-30"/>
-     <path d="
-M48.7812 52.5938
-L48.7812 44.1875
-Q44.9688 46.2969 41.1406 47.3438
-Q37.3125 48.3906 33.4062 48.3906
-Q24.6562 48.3906 19.8125 42.8438
-Q14.9844 37.3125 14.9844 27.2969
-Q14.9844 17.2812 19.8125 11.7344
-Q24.6562 6.20312 33.4062 6.20312
-Q37.3125 6.20312 41.1406 7.25
-Q44.9688 8.29688 48.7812 10.4062
-L48.7812 2.09375
-Q45.0156 0.34375 40.9844 -0.53125
-Q36.9688 -1.42188 32.4219 -1.42188
-Q20.0625 -1.42188 12.7812 6.34375
-Q5.51562 14.1094 5.51562 27.2969
-Q5.51562 40.6719 12.8594 48.3281
-Q20.2188 56 33.0156 56
-Q37.1562 56 41.1094 55.1406
-Q45.0625 54.2969 48.7812 52.5938" id="BitstreamVeraSans-Roman-63"/>
-    </defs>
-    <g transform="translate(47.96 18.88)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
-     <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
-     <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
-     <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-76"/>
-     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(260.232421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </defs>
+      <g transform="translate(60.599375 290.0995)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
     </g>
-   </g>
-   <g id="text_3">
-    <!-- $T_{in}$ -->
-    <g transform="translate(110.96 25.515)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
-     <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-69"/>
-     <use transform="translate(80.5322265625 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
+    <g id="xtick_2">
+     <g id="line2d_6">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="142.390625" xlink:href="#m93b0483c22" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_7">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="142.390625" xlink:href="#m741efc42ff" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- 5 -->
+      <defs>
+       <path d="
+M10.7969 72.9062
+L49.5156 72.9062
+L49.5156 64.5938
+L19.8281 64.5938
+L19.8281 46.7344
+Q21.9688 47.4688 24.1094 47.8281
+Q26.2656 48.1875 28.4219 48.1875
+Q40.625 48.1875 47.75 41.5
+Q54.8906 34.8125 54.8906 23.3906
+Q54.8906 11.625 47.5625 5.09375
+Q40.2344 -1.42188 26.9062 -1.42188
+Q22.3125 -1.42188 17.5469 -0.640625
+Q12.7969 0.140625 7.71875 1.70312
+L7.71875 11.625
+Q12.1094 9.23438 16.7969 8.0625
+Q21.4844 6.89062 26.7031 6.89062
+Q35.1562 6.89062 40.0781 11.3281
+Q45.0156 15.7656 45.0156 23.3906
+Q45.0156 31 40.0781 35.4375
+Q35.1562 39.8906 26.7031 39.8906
+Q22.75 39.8906 18.8125 39.0156
+Q14.8906 38.1406 10.7969 36.2812
+z
+" id="BitstreamVeraSans-Roman-35"/>
+      </defs>
+      <g transform="translate(138.616875 290.0995)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-35"/>
+      </g>
+     </g>
     </g>
-   </g>
-   <g id="text_4">
-    <!-- $R_{cond,0}$ -->
-    <defs>
-     <path d="
-M45.4062 46.3906
-L45.4062 75.9844
-L54.3906 75.9844
-L54.3906 0
-L45.4062 0
-L45.4062 8.20312
-Q42.5781 3.32812 38.25 0.953125
-Q33.9375 -1.42188 27.875 -1.42188
-Q17.9688 -1.42188 11.7344 6.48438
-Q5.51562 14.4062 5.51562 27.2969
-Q5.51562 40.1875 11.7344 48.0938
-Q17.9688 56 27.875 56
-Q33.9375 56 38.25 53.625
-Q42.5781 51.2656 45.4062 46.3906
-M14.7969 27.2969
-Q14.7969 17.3906 18.875 11.75
-Q22.9531 6.10938 30.0781 6.10938
-Q37.2031 6.10938 41.2969 11.75
-Q45.4062 17.3906 45.4062 27.2969
-Q45.4062 37.2031 41.2969 42.8438
-Q37.2031 48.4844 30.0781 48.4844
-Q22.9531 48.4844 18.875 42.8438
-Q14.7969 37.2031 14.7969 27.2969" id="BitstreamVeraSans-Roman-64"/>
-    </defs>
-    <g transform="translate(144.92 18.88)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
-     <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
-     <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
-     <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-64"/>
-     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(263.240234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
-    </g>
-   </g>
-   <g id="text_5">
-    <!-- $R_{conv,0}$ -->
-    <g transform="translate(242.36 18.88)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
-     <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
-     <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
-     <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-76"/>
-     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(260.232421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-30"/>
-    </g>
-   </g>
-   <g id="text_6">
-    <!-- $R_{cond,1}$ -->
-    <defs>
-     <path d="
+    <g id="xtick_3">
+     <g id="line2d_8">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="220.150625" xlink:href="#m93b0483c22" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="220.150625" xlink:href="#m741efc42ff" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 10 -->
+      <defs>
+       <path d="
 M12.4062 8.29688
 L28.5156 8.29688
 L28.5156 63.9219
@@ -2405,21 +2171,657 @@ L54.3906 0
 L12.4062 0
 z
 " id="BitstreamVeraSans-Roman-31"/>
-    </defs>
-    <g transform="translate(339.32 18.88)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
-     <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
-     <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
-     <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-64"/>
-     <use transform="translate(239.594726562 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(263.240234375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-31"/>
+      </defs>
+      <g transform="translate(211.380625 290.0995)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-31"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_10">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="297.910625" xlink:href="#m93b0483c22" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="297.910625" xlink:href="#m741efc42ff" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 15 -->
+      <g transform="translate(289.308125 290.0995)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-31"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_12">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="375.670625" xlink:href="#m93b0483c22" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="375.670625" xlink:href="#m741efc42ff" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- 20 -->
+      <defs>
+       <path d="
+M19.1875 8.29688
+L53.6094 8.29688
+L53.6094 0
+L7.32812 0
+L7.32812 8.29688
+Q12.9375 14.1094 22.625 23.8906
+Q32.3281 33.6875 34.8125 36.5312
+Q39.5469 41.8438 41.4219 45.5312
+Q43.3125 49.2188 43.3125 52.7812
+Q43.3125 58.5938 39.2344 62.25
+Q35.1562 65.9219 28.6094 65.9219
+Q23.9688 65.9219 18.8125 64.3125
+Q13.6719 62.7031 7.8125 59.4219
+L7.8125 69.3906
+Q13.7656 71.7812 18.9375 73
+Q24.125 74.2188 28.4219 74.2188
+Q39.75 74.2188 46.4844 68.5469
+Q53.2188 62.8906 53.2188 53.4219
+Q53.2188 48.9219 51.5312 44.8906
+Q49.8594 40.875 45.4062 35.4062
+Q44.1875 33.9844 37.6406 27.2188
+Q31.1094 20.4531 19.1875 8.29688" id="BitstreamVeraSans-Roman-32"/>
+      </defs>
+      <g transform="translate(366.608125 290.0995)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-32"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_14">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#m93b0483c22" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#m741efc42ff" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- 25 -->
+      <g transform="translate(444.535625 290.0995)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-32"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_7">
+     <!-- $x$ ($mm$) -->
+     <defs>
+      <path id="BitstreamVeraSerif-Roman-20"/>
+      <path d="
+M31.8906 -15.5781
+Q20.0156 -10.25 13.9531 1.29688
+Q7.90625 12.8438 7.90625 30.1719
+Q7.90625 47.5625 13.9531 59.1094
+Q20.0156 70.6562 31.8906 75.9844
+L31.8906 71.1875
+Q24.3594 66.0156 21.0938 56.6094
+Q17.8281 47.2188 17.8281 30.1719
+Q17.8281 13.1875 21.0938 3.78125
+Q24.3594 -5.60938 31.8906 -10.7969
+z
+" id="BitstreamVeraSerif-Roman-28"/>
+      <path d="
+M51.8125 41.7969
+Q54.3906 47.5156 58.4219 50.4219
+Q62.4531 53.3281 67.8281 53.3281
+Q75.9844 53.3281 79.9844 48.2656
+Q83.9844 43.2188 83.9844 33.0156
+L83.9844 5.17188
+L92.0938 5.17188
+L92.0938 0
+L67.1875 0
+L67.1875 5.17188
+L75 5.17188
+L75 31.9844
+Q75 39.9375 72.6562 43.3125
+Q70.3125 46.6875 64.8906 46.6875
+Q58.8906 46.6875 55.7344 42.1406
+Q52.5938 37.5938 52.5938 28.9062
+L52.5938 5.17188
+L60.4062 5.17188
+L60.4062 0
+L35.7969 0
+L35.7969 5.17188
+L43.6094 5.17188
+L43.6094 32.3281
+Q43.6094 40.0938 41.2656 43.3906
+Q38.9219 46.6875 33.5 46.6875
+Q27.4844 46.6875 24.3281 42.1406
+Q21.1875 37.5938 21.1875 28.9062
+L21.1875 5.17188
+L29 5.17188
+L29 0
+L4.10938 0
+L4.10938 5.17188
+L12.2031 5.17188
+L12.2031 46.7812
+L3.60938 46.7812
+L3.60938 51.9062
+L21.1875 51.9062
+L21.1875 42.6719
+Q23.6875 47.8594 27.5312 50.5938
+Q31.3906 53.3281 36.2812 53.3281
+Q42.3281 53.3281 46.375 50.3125
+Q50.4375 47.3125 51.8125 41.7969" id="BitstreamVeraSerif-Roman-6d"/>
+      <path d="
+M7.07812 -15.5781
+L7.07812 -10.7969
+Q14.5938 -5.60938 17.8906 3.78125
+Q21.1875 13.1875 21.1875 30.1719
+Q21.1875 47.2188 17.8906 56.6094
+Q14.5938 66.0156 7.07812 71.1875
+L7.07812 75.9844
+Q19 70.6562 25.0469 59.1094
+Q31.1094 47.5625 31.1094 30.1719
+Q31.1094 12.8438 25.0469 1.29688
+Q19 -10.25 7.07812 -15.5781" id="BitstreamVeraSerif-Roman-29"/>
+      <path d="
+M29.1094 31.6875
+L39.9844 46.6875
+L33.0156 46.6875
+L33.0156 51.9062
+L52.9844 51.9062
+L52.9844 46.6875
+L46.0938 46.6875
+L32.1719 27.4844
+L48.3906 5.17188
+L55.1719 5.17188
+L55.1719 0
+L31.2031 0
+L31.2031 5.17188
+L37.7969 5.17188
+L26.5156 20.7031
+L15.1875 5.17188
+L21.9219 5.17188
+L21.9219 0
+L2.20312 0
+L2.20312 5.17188
+L9.07812 5.17188
+L23.3906 24.9062
+L7.625 46.6875
+L1.21875 46.6875
+L1.21875 51.9062
+L24.4219 51.9062
+L24.4219 46.6875
+L18.2188 46.6875
+z
+" id="BitstreamVeraSerif-Roman-78"/>
+     </defs>
+     <g transform="translate(226.990625 312.1041875)scale(0.18 -0.18)">
+      <use transform="translate(0.0 0.015625)" xlink:href="#BitstreamVeraSerif-Roman-78"/>
+      <use transform="translate(56.396484375 0.015625)" xlink:href="#BitstreamVeraSerif-Roman-20"/>
+      <use transform="translate(88.18359375 0.015625)" xlink:href="#BitstreamVeraSerif-Roman-28"/>
+      <use transform="translate(127.197265625 0.015625)" xlink:href="#BitstreamVeraSerif-Roman-6d"/>
+      <use transform="translate(222.021484375 0.015625)" xlink:href="#BitstreamVeraSerif-Roman-6d"/>
+      <use transform="translate(316.845703125 0.015625)" xlink:href="#BitstreamVeraSerif-Roman-29"/>
+     </g>
     </g>
    </g>
-   <g id="text_7">
-    <!-- $T_{out}$ -->
-    <defs>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_16">
+      <defs>
+       <path d="
+M0 0
+L4 0" id="m728421d6d4" style="stroke:#000000;stroke-width:0.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="273.942"/>
+      </g>
+     </g>
+     <g id="line2d_17">
+      <defs>
+       <path d="
+M0 0
+L-4 0" id="mcb0005524f" style="stroke:#000000;stroke-width:0.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="273.942"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- −10 -->
+      <defs>
+       <path d="
+M10.5938 35.5
+L73.1875 35.5
+L73.1875 27.2031
+L10.5938 27.2031
+z
+" id="BitstreamVeraSans-Roman-2212"/>
+      </defs>
+      <g transform="translate(29.620625 278.357)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-2212"/>
+       <use x="83.7890625" xlink:href="#BitstreamVeraSans-Roman-31"/>
+       <use x="147.412109375" xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_18">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="236.742"/>
+      </g>
+     </g>
+     <g id="line2d_19">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="236.742"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- −5 -->
+      <g transform="translate(40.135625 241.157)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-2212"/>
+       <use x="83.7890625" xlink:href="#BitstreamVeraSans-Roman-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_20">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="199.542"/>
+      </g>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="199.542"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- 0 -->
+      <g transform="translate(52.568125 203.957)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_22">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="162.342"/>
+      </g>
+     </g>
+     <g id="line2d_23">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="162.342"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- 5 -->
+      <g transform="translate(53.083125 166.757)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_24">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="125.142"/>
+      </g>
+     </g>
+     <g id="line2d_25">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="125.142"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- 10 -->
+      <g transform="translate(43.090625 129.557)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-31"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_26">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="87.942"/>
+      </g>
+     </g>
+     <g id="line2d_27">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="87.942"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- 15 -->
+      <g transform="translate(43.425625 92.357)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-31"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-35"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_28">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="64.630625" xlink:href="#m728421d6d4" y="50.742"/>
+      </g>
+     </g>
+     <g id="line2d_29">
+      <g>
+       <use style="stroke:#000000;stroke-width:0.5;" x="453.430625" xlink:href="#mcb0005524f" y="50.742"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <!-- 20 -->
+      <g transform="translate(42.505625 55.157)scale(0.16 -0.16)">
+       <use xlink:href="#BitstreamVeraSans-Roman-32"/>
+       <use x="63.623046875" xlink:href="#BitstreamVeraSans-Roman-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="text_15">
+     <!-- $T$ ($^\circ C$) -->
+     <defs>
+      <path d="
+M70.5156 19.2812
+Q67.2812 9.07812 59.6875 3.82812
+Q52.0938 -1.42188 40.4844 -1.42188
+Q33.3438 -1.42188 27.2344 1.01562
+Q21.1406 3.46875 16.4062 8.20312
+Q10.9375 13.6719 8.26562 20.625
+Q5.60938 27.5938 5.60938 36.375
+Q5.60938 53.375 15.4219 63.7969
+Q25.25 74.2188 41.3125 74.2188
+Q47.2656 74.2188 54 72.6562
+Q60.75 71.0938 68.5 67.9219
+L68.5 51.125
+L62.9844 51.125
+Q61.1875 60.2969 55.7344 64.6406
+Q50.2969 69 40.4844 69
+Q28.8125 69 22.7969 60.7188
+Q16.7969 52.4375 16.7969 36.375
+Q16.7969 20.3594 22.7969 12.0781
+Q28.8125 3.8125 40.4844 3.8125
+Q48.6406 3.8125 53.9062 7.6875
+Q59.1875 11.5781 61.5312 19.2812
+z
+" id="BitstreamVeraSerif-Roman-43"/>
+      <path d="
+M19.0938 0
+L19.0938 5.17188
+L28.4219 5.17188
+L28.4219 67.0938
+L6.98438 67.0938
+L6.98438 55.7188
+L0.984375 55.7188
+L0.984375 72.9062
+L65.7188 72.9062
+L65.7188 55.7188
+L59.7188 55.7188
+L59.7188 67.0938
+L38.2812 67.0938
+L38.2812 5.17188
+L47.6094 5.17188
+L47.6094 0
+z
+" id="BitstreamVeraSerif-Roman-54"/>
+      <path d="
+M23.2031 38.7031
+Q31 30.7969 31 25.1875
+Q31 19.5938 27.0469 15.6406
+Q23.0938 11.7031 17.5 11.7031
+Q11.7969 11.7031 7.89062 15.6406
+Q4 19.5938 4 25.4062
+Q4 31 7.95312 34.8438
+Q11.9062 38.7031 17.7031 38.7031
+Q23.2031 38.7031 31 30.7969
+M20.4062 18.2969
+Q24.4062 22.2969 24.4062 25.1875
+Q24.4062 28.0938 22.4062 30.0938
+Q20.4062 32.0938 17.7031 32.0938
+Q14.5938 32.0938 12.5938 30.1406
+Q10.5938 28.2031 10.5938 25.4062
+Q10.5938 22.2969 12.5469 20.2969
+Q14.5 18.2969 17.5 18.2969
+Q20.4062 18.2969 24.4062 22.2969" id="STIXGeneral-Regular-2218"/>
+     </defs>
+     <g transform="translate(20.8771875 191.052)rotate(-90.0)scale(0.18 -0.18)">
+      <use transform="translate(0.0 0.0796875)" xlink:href="#BitstreamVeraSerif-Roman-54"/>
+      <use transform="translate(66.69921875 0.0796875)" xlink:href="#BitstreamVeraSerif-Roman-20"/>
+      <use transform="translate(98.486328125 0.0796875)" xlink:href="#BitstreamVeraSerif-Roman-28"/>
+      <use transform="translate(150.775390625 49.9078125)scale(0.7)" xlink:href="#STIXGeneral-Regular-2218"/>
+      <use transform="translate(202.88203125 0.0796875)" xlink:href="#BitstreamVeraSerif-Roman-43"/>
+      <use transform="translate(279.395703125 0.0796875)" xlink:href="#BitstreamVeraSerif-Roman-29"/>
+     </g>
+    </g>
+   </g>
+   <g id="legend_1">
+    <g id="patch_7">
      <path d="
+M80.0706 43.142
+L472.954 43.142
+Q476.794 43.142 476.794 39.302
+L476.794 13.04
+Q476.794 9.2 472.954 9.2
+L80.0706 9.2
+Q76.2306 9.2 76.2306 13.04
+L76.2306 39.302
+Q76.2306 43.142 80.0706 43.142
+z
+" style="fill:#4c4c4c;opacity:0.5;stroke:#4c4c4c;stroke-linejoin:miter;"/>
+    </g>
+    <g id="patch_8">
+     <path d="
+M78.0706 41.142
+L470.954 41.142
+Q474.794 41.142 474.794 37.302
+L474.794 11.04
+Q474.794 7.2 470.954 7.2
+L78.0706 7.2
+Q74.2306 7.2 74.2306 11.04
+L74.2306 37.302
+Q74.2306 41.142 78.0706 41.142
+z
+" style="fill:#ffffff;stroke:#000000;stroke-linejoin:miter;"/>
+    </g>
+    <g id="line2d_30">
+     <path d="
+M87.6706 22.749
+L114.551 22.749" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-width:2;"/>
+    </g>
+    <g id="line2d_31">
+     <g>
+      <use style="stroke:#000000;stroke-width:0.5;" x="87.670625" xlink:href="#m8b0675cc3b" y="22.749"/>
+      <use style="stroke:#000000;stroke-width:0.5;" x="114.550625" xlink:href="#m8b0675cc3b" y="22.749"/>
+     </g>
+    </g>
+    <g id="text_16">
+     <!-- air -->
+     <defs>
+      <path d="
+M41.1094 46.2969
+Q39.5938 47.1719 37.8125 47.5781
+Q36.0312 48 33.8906 48
+Q26.2656 48 22.1875 43.0469
+Q18.1094 38.0938 18.1094 28.8125
+L18.1094 0
+L9.07812 0
+L9.07812 54.6875
+L18.1094 54.6875
+L18.1094 46.1875
+Q20.9531 51.1719 25.4844 53.5781
+Q30.0312 56 36.5312 56
+Q37.4531 56 38.5781 55.875
+Q39.7031 55.7656 41.0625 55.5156
+z
+" id="BitstreamVeraSans-Roman-72"/>
+      <path d="
+M9.42188 54.6875
+L18.4062 54.6875
+L18.4062 0
+L9.42188 0
+z
+
+M9.42188 75.9844
+L18.4062 75.9844
+L18.4062 64.5938
+L9.42188 64.5938
+z
+" id="BitstreamVeraSans-Roman-69"/>
+      <path d="
+M34.2812 27.4844
+Q23.3906 27.4844 19.1875 25
+Q14.9844 22.5156 14.9844 16.5
+Q14.9844 11.7188 18.1406 8.90625
+Q21.2969 6.10938 26.7031 6.10938
+Q34.1875 6.10938 38.7031 11.4062
+Q43.2188 16.7031 43.2188 25.4844
+L43.2188 27.4844
+z
+
+M52.2031 31.2031
+L52.2031 0
+L43.2188 0
+L43.2188 8.29688
+Q40.1406 3.32812 35.5469 0.953125
+Q30.9531 -1.42188 24.3125 -1.42188
+Q15.9219 -1.42188 10.9531 3.29688
+Q6 8.01562 6 15.9219
+Q6 25.1406 12.1719 29.8281
+Q18.3594 34.5156 30.6094 34.5156
+L43.2188 34.5156
+L43.2188 35.4062
+Q43.2188 41.6094 39.1406 45
+Q35.0625 48.3906 27.6875 48.3906
+Q23 48.3906 18.5469 47.2656
+Q14.1094 46.1406 10.0156 43.8906
+L10.0156 52.2031
+Q14.9375 54.1094 19.5781 55.0469
+Q24.2188 56 28.6094 56
+Q40.4844 56 46.3438 49.8438
+Q52.2031 43.7031 52.2031 31.2031" id="BitstreamVeraSans-Roman-61"/>
+     </defs>
+     <g transform="translate(135.670625 29.469)scale(0.192 -0.192)">
+      <use xlink:href="#BitstreamVeraSans-Roman-61"/>
+      <use x="61.279296875" xlink:href="#BitstreamVeraSans-Roman-69"/>
+      <use x="89.0625" xlink:href="#BitstreamVeraSans-Roman-72"/>
+     </g>
+    </g>
+    <g id="line2d_32">
+     <path d="
+M203.672 22.749
+L230.552 22.749" style="fill:none;stroke:#0000ff;stroke-linecap:square;stroke-width:2;"/>
+    </g>
+    <g id="line2d_33">
+     <g>
+      <use style="fill:#0000ff;stroke:#000000;stroke-width:0.5;" x="203.671625" xlink:href="#mf1e9a9e4ae" y="22.749"/>
+      <use style="fill:#0000ff;stroke:#000000;stroke-width:0.5;" x="230.551625" xlink:href="#mf1e9a9e4ae" y="22.749"/>
+     </g>
+    </g>
+    <g id="text_17">
+     <!-- argon -->
+     <defs>
+      <path d="
+M54.8906 33.0156
+L54.8906 0
+L45.9062 0
+L45.9062 32.7188
+Q45.9062 40.4844 42.875 44.3281
+Q39.8438 48.1875 33.7969 48.1875
+Q26.5156 48.1875 22.3125 43.5469
+Q18.1094 38.9219 18.1094 30.9062
+L18.1094 0
+L9.07812 0
+L9.07812 54.6875
+L18.1094 54.6875
+L18.1094 46.1875
+Q21.3438 51.125 25.7031 53.5625
+Q30.0781 56 35.7969 56
+Q45.2188 56 50.0469 50.1719
+Q54.8906 44.3438 54.8906 33.0156" id="BitstreamVeraSans-Roman-6e"/>
+      <path d="
+M45.4062 27.9844
+Q45.4062 37.75 41.375 43.1094
+Q37.3594 48.4844 30.0781 48.4844
+Q22.8594 48.4844 18.8281 43.1094
+Q14.7969 37.75 14.7969 27.9844
+Q14.7969 18.2656 18.8281 12.8906
+Q22.8594 7.51562 30.0781 7.51562
+Q37.3594 7.51562 41.375 12.8906
+Q45.4062 18.2656 45.4062 27.9844
+M54.3906 6.78125
+Q54.3906 -7.17188 48.1875 -13.9844
+Q42 -20.7969 29.2031 -20.7969
+Q24.4688 -20.7969 20.2656 -20.0938
+Q16.0625 -19.3906 12.1094 -17.9219
+L12.1094 -9.1875
+Q16.0625 -11.3281 19.9219 -12.3438
+Q23.7812 -13.375 27.7812 -13.375
+Q36.625 -13.375 41.0156 -8.76562
+Q45.4062 -4.15625 45.4062 5.17188
+L45.4062 9.625
+Q42.625 4.78125 38.2812 2.39062
+Q33.9375 0 27.875 0
+Q17.8281 0 11.6719 7.65625
+Q5.51562 15.3281 5.51562 27.9844
+Q5.51562 40.6719 11.6719 48.3281
+Q17.8281 56 27.875 56
+Q33.9375 56 38.2812 53.6094
+Q42.625 51.2188 45.4062 46.3906
+L45.4062 54.6875
+L54.3906 54.6875
+z
+" id="BitstreamVeraSans-Roman-67"/>
+      <path d="
+M30.6094 48.3906
+Q23.3906 48.3906 19.1875 42.75
+Q14.9844 37.1094 14.9844 27.2969
+Q14.9844 17.4844 19.1562 11.8438
+Q23.3438 6.20312 30.6094 6.20312
+Q37.7969 6.20312 41.9844 11.8594
+Q46.1875 17.5312 46.1875 27.2969
+Q46.1875 37.0156 41.9844 42.7031
+Q37.7969 48.3906 30.6094 48.3906
+M30.6094 56
+Q42.3281 56 49.0156 48.375
+Q55.7188 40.7656 55.7188 27.2969
+Q55.7188 13.875 49.0156 6.21875
+Q42.3281 -1.42188 30.6094 -1.42188
+Q18.8438 -1.42188 12.1719 6.21875
+Q5.51562 13.875 5.51562 27.2969
+Q5.51562 40.7656 12.1719 48.375
+Q18.8438 56 30.6094 56" id="BitstreamVeraSans-Roman-6f"/>
+     </defs>
+     <g transform="translate(251.671625 29.469)scale(0.192 -0.192)">
+      <use xlink:href="#BitstreamVeraSans-Roman-61"/>
+      <use x="61.279296875" xlink:href="#BitstreamVeraSans-Roman-72"/>
+      <use x="100.642578125" xlink:href="#BitstreamVeraSans-Roman-67"/>
+      <use x="164.119140625" xlink:href="#BitstreamVeraSans-Roman-6f"/>
+      <use x="225.30078125" xlink:href="#BitstreamVeraSans-Roman-6e"/>
+     </g>
+    </g>
+    <g id="line2d_34">
+     <path d="
+M348.479 22.749
+L375.359 22.749" style="fill:none;stroke:#ff0000;stroke-linecap:square;stroke-width:2;"/>
+    </g>
+    <g id="line2d_35">
+     <g>
+      <use style="fill:#ff0000;stroke:#000000;stroke-width:0.5;" x="348.478625" xlink:href="#md175be6dbf" y="22.749"/>
+      <use style="fill:#ff0000;stroke:#000000;stroke-width:0.5;" x="375.358625" xlink:href="#md175be6dbf" y="22.749"/>
+     </g>
+    </g>
+    <g id="text_18">
+     <!-- krypton -->
+     <defs>
+      <path d="
 M18.3125 70.2188
 L18.3125 54.6875
 L36.8125 54.6875
@@ -2440,66 +2842,137 @@ L9.28125 54.6875
 L9.28125 70.2188
 z
 " id="BitstreamVeraSans-Roman-74"/>
-     <path d="
-M8.5 21.5781
-L8.5 54.6875
-L17.4844 54.6875
-L17.4844 21.9219
-Q17.4844 14.1562 20.5 10.2656
-Q23.5312 6.39062 29.5938 6.39062
-Q36.8594 6.39062 41.0781 11.0312
-Q45.3125 15.6719 45.3125 23.6875
-L45.3125 54.6875
-L54.2969 54.6875
-L54.2969 0
-L45.3125 0
-L45.3125 8.40625
-Q42.0469 3.42188 37.7188 1
-Q33.4062 -1.42188 27.6875 -1.42188
-Q18.2656 -1.42188 13.375 4.4375
-Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
-    </defs>
-    <g transform="translate(398.48 25.355)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
-     <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(103.911132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-75"/>
-     <use transform="translate(148.276367188 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-74"/>
-    </g>
-   </g>
-   <g id="text_8">
-    <!-- $R_{conv,1}$ -->
-    <g transform="translate(436.76 18.88)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-52"/>
-     <use transform="translate(69.482421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-63"/>
-     <use transform="translate(107.96875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(150.795898438 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6e"/>
-     <use transform="translate(195.161132812 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-76"/>
-     <use transform="translate(236.586914062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(260.232421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-31"/>
-    </g>
-   </g>
-   <g id="text_9">
-    <!-- $T_{\infty,out}$ -->
-    <g transform="translate(489.12 24.235)scale(0.16 -0.16)">
-     <use transform="translate(0.0 0.09375)" xlink:href="#BitstreamVeraSans-Roman-54"/>
-     <use transform="translate(61.083984375 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-221e"/>
-     <use transform="translate(119.39453125 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-2c"/>
-     <use transform="translate(143.040039062 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-6f"/>
-     <use transform="translate(185.8671875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-75"/>
-     <use transform="translate(230.232421875 -31.40625)scale(0.7)" xlink:href="#BitstreamVeraSans-Roman-74"/>
+      <path d="
+M32.1719 -5.07812
+Q28.375 -14.8438 24.75 -17.8125
+Q21.1406 -20.7969 15.0938 -20.7969
+L7.90625 -20.7969
+L7.90625 -13.2812
+L13.1875 -13.2812
+Q16.8906 -13.2812 18.9375 -11.5156
+Q21 -9.76562 23.4844 -3.21875
+L25.0938 0.875
+L2.98438 54.6875
+L12.5 54.6875
+L29.5938 11.9219
+L46.6875 54.6875
+L56.2031 54.6875
+z
+" id="BitstreamVeraSans-Roman-79"/>
+      <path d="
+M18.1094 8.20312
+L18.1094 -20.7969
+L9.07812 -20.7969
+L9.07812 54.6875
+L18.1094 54.6875
+L18.1094 46.3906
+Q20.9531 51.2656 25.2656 53.625
+Q29.5938 56 35.5938 56
+Q45.5625 56 51.7812 48.0938
+Q58.0156 40.1875 58.0156 27.2969
+Q58.0156 14.4062 51.7812 6.48438
+Q45.5625 -1.42188 35.5938 -1.42188
+Q29.5938 -1.42188 25.2656 0.953125
+Q20.9531 3.32812 18.1094 8.20312
+M48.6875 27.2969
+Q48.6875 37.2031 44.6094 42.8438
+Q40.5312 48.4844 33.4062 48.4844
+Q26.2656 48.4844 22.1875 42.8438
+Q18.1094 37.2031 18.1094 27.2969
+Q18.1094 17.3906 22.1875 11.75
+Q26.2656 6.10938 33.4062 6.10938
+Q40.5312 6.10938 44.6094 11.75
+Q48.6875 17.3906 48.6875 27.2969" id="BitstreamVeraSans-Roman-70"/>
+      <path d="
+M9.07812 75.9844
+L18.1094 75.9844
+L18.1094 31.1094
+L44.9219 54.6875
+L56.3906 54.6875
+L27.3906 29.1094
+L57.625 0
+L45.9062 0
+L18.1094 26.7031
+L18.1094 0
+L9.07812 0
+z
+" id="BitstreamVeraSans-Roman-6b"/>
+     </defs>
+     <g transform="translate(396.478625 29.469)scale(0.192 -0.192)">
+      <use xlink:href="#BitstreamVeraSans-Roman-6b"/>
+      <use x="57.91015625" xlink:href="#BitstreamVeraSans-Roman-72"/>
+      <use x="99.0234375" xlink:href="#BitstreamVeraSans-Roman-79"/>
+      <use x="158.203125" xlink:href="#BitstreamVeraSans-Roman-70"/>
+      <use x="221.6796875" xlink:href="#BitstreamVeraSans-Roman-74"/>
+      <use x="260.888671875" xlink:href="#BitstreamVeraSans-Roman-6f"/>
+      <use x="322.0703125" xlink:href="#BitstreamVeraSans-Roman-6e"/>
+     </g>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p94701a8de4">
-   <rect height="21.42" width="497.34" x="18.09" y="25.28"/>
+  <clipPath id="pb2253cdb5c">
+   <rect height="223.2" width="388.8" x="64.630625" y="50.742"/>
   </clipPath>
  </defs>
 </svg>
 
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><h3>Storm window</h3>
+We now look at the heat loss through a storm window, which consists of two single pane windows separated by a wide, poorly sealed gap of air. The gap is $L=5cm$ wide.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">Libraries</span> <span class="kn">import</span> <span class="n">HT_natural_convection_enclosure</span> <span class="k">as</span> <span class="n">ncconvenc</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mf">0.008</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">T_f</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">T_inf_in</span><span class="o">+</span><span class="n">T_inf_out</span><span class="p">)</span>
+<span class="n">air</span> <span class="o">=</span> <span class="n">thermo</span><span class="o">.</span><span class="n">Fluid</span><span class="p">(</span><span class="s">&#39;air&#39;</span><span class="p">)</span>
+<span class="n">air</span><span class="o">.</span><span class="n">get_properties</span><span class="p">(</span><span class="n">C2K</span><span class="p">(</span><span class="n">T_f</span><span class="p">))</span>
+<span class="c"># calculate Ra for natural convection</span>
+<span class="n">Ra_L</span> <span class="o">=</span> <span class="n">ncconvenc</span><span class="o">.</span><span class="n">Ra</span><span class="p">(</span><span class="mf">9.81</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span><span class="n">T_inf_in</span><span class="o">-</span><span class="n">T_inf_out</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;Rayleigh number: </span><span class="si">%1.3e</span><span class="s">&quot;</span> <span class="o">%</span><span class="k">Ra_L</span>)
+<span class="n">Nu</span> <span class="o">=</span> <span class="n">ncconvenc</span><span class="o">.</span><span class="n">Nu_vertical_enclosure</span><span class="p">(</span><span class="n">Ra_L</span><span class="p">,</span><span class="n">air</span><span class="o">.</span><span class="n">Pr</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">L</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;Nussel number: </span><span class="si">%3.3f</span><span class="s">&quot;</span> <span class="o">%</span><span class="k">Nu</span>)
+<span class="n">h_cgap</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">k</span><span class="o">*</span><span class="n">Nu</span><span class="o">/</span><span class="n">H</span>
+<span class="k">print</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Rayleigh number: 4.975e+05
+ok
+Nussel number: 4.835
+0.148992809835
+</pre>
+</div>
 </div>
 
 </div>
@@ -2521,13 +2994,28 @@ Q8.5 10.2969 8.5 21.5781" id="BitstreamVeraSans-Roman-75"/>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ipython nbconvert --html 
+<div class=" highlight hl-ipython2"><pre><span class="o">!</span>ipython nbconvert --to html Problem-Template0.ipynb --output <span class="nv">$student_id</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[NbConvertApp] Converting notebook Problem-Template0.ipynb to html
+[NbConvertApp] Writing 319091 bytes to ydubief.html
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
