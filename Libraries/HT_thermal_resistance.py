@@ -50,15 +50,18 @@ class Resistance(object):
         self.mode = 'convection'
         self.R = 1./(h*A)
         self.surface_scale = A
+        self.h = h
         self.h_name = h_name
         self.surface_name = A_name
         self.Ta_name = Ta_name
         self.Tb_name = Tb_name
-    def radiation(eps,T_s,T_infty,A,Ta_name,Tb_name):
-        self.R = 1./(eps*sc.sigma*(T_s+T_infty)*(T_s**2+T_infty**2)*A)
+    def radiation(self,eps,T_s,T_sur,A,h_name,A_name,Ta_name,Tb_name):
+        self.R = 1./(eps*sc.sigma*(T_s+T_sur)*(T_s**2+T_sur**2)*A)
         self.mode = 'radiation'
         self.surface_scale = A
+        self.h = eps*sc.sigma*(T_s+T_sur)*(T_s**2+T_sur**2)
         self.surface_name = A_name
+        self.h_name = h_name
         self.Ta_name = Ta_name
         self.Tb_name = Tb_name
         
