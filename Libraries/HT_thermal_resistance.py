@@ -64,6 +64,14 @@ class Resistance(object):
         self.h_name = h_name
         self.Ta_name = Ta_name
         self.Tb_name = Tb_name
+    def contact(self,R,A,R_name,A_name,Ta_name,Tb_name):
+        self.R = R/A
+        self.mode = 'contact'
+        self.R_name = R_name
+        self.surface_scale = A
+        self.surface_name = A_name
+        self.Ta_name = Ta_name
+        self.Tb_name = Tb_name
         
     def display_equation(self,index):
 
@@ -92,7 +100,7 @@ class Resistance(object):
                 else:
                     eq1 = sym.Eq(qsym,cstsym/rasym*(Tasym-Tbsym))
             elif self.geometry == 'cylindrical':
-                if self.units != 'W/m^2':
+                if self.units == 'W':
                     eq1 = sym.Eq(qsym,2*sym.pi*cstsym/sym.log(rbsym/rasym)*Asym*(Tasym-Tbsym))
                 else:
                     eq1 = sym.Eq(qsym,2*sym.pi*cstsym/sym.log(rbsym/rasym)*(Tasym-Tbsym))
@@ -111,6 +119,13 @@ class Resistance(object):
                 eq1 = sym.Eq(qsym,cstsym*(Tasym-Tbsym))
             else:
                 eq1 = sym.Eq(qsym,cstsym*Asym*(Tasym-Tbsym))
+        elif self.mode == 'contact':
+            cstsym = sym.symbols(self.R_name)
+            if self.units == 'W/m^2':
+                eq1 = sym.Eq(qsym,cstsym*(Tasym-Tbsym))
+            else:
+                eq1 = sym.Eq(qsym,(Asym/cstsym)*(Tasym-Tbsym))
+        
         return display(eq,eq1)
         
 ### summation of thermal resistance (R is a vector) ###
