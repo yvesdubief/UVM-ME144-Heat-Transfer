@@ -1,3 +1,7 @@
+"""Object name: Resistance
+   Function name: serial_sum(R,nori,nend), performs serial sum of a resistance object list from nori to nend
+   Function name: parallel_sum(R,nori,nend), performs parallel sum of a resistance object list from nori to nend
+   """
 ### definition of thermal resistance ###
 from __future__ import division
 from sympy.interactive import printing
@@ -18,12 +22,41 @@ class Resistance(object):
         and the units, which can only be 'W', 'W/m' or 'W/m^2'
         Second use self.conduction, self.convection or self.radiation to calculate your 
         resistance. Each mode requires different arguments:
-        .conduction(self,geo,k,r_a,r_b,A,r_a_name,r_b_name,A_name,Ta_name,Tb_name), where geo can only be 'plane',
+        
+        from Libraries import HT_thermal_resistance as res
+        R = []
+        R.append(res.Resistance("$label$", "units")) where units = 'W', 'W/m' or 'W/m^2'
+        
+        then
+        
+        R.conduction(geo,k,r_a,r_b,A,k_name,r_a_name,r_b_name,A_name,Ta_name,Tb_name), where geo can only be 'plane',
         'cylindrical' or 'spherical', r_a is the first length and the only that matters in case
         of planar conduction, r_b is the second length. r_b must be an input even for planar
         (could be 0.). A is the surface area of the system for plane conduction, or the length of the cylinder
         for cylindrical conduction. Set to 0 if spherical. All arguments ending with _name are
         used to write the flux equations(they are strings preferably LaTeX formatted)
+        
+        R.convection(h,A,h_name,A_name,Ta_name,Tb_name), where h is the convection coefficient (W/m^2K) and A is 
+        the surface area. All arguments ending with _name are used to write the flux equations(they are strings 
+        preferably LaTeX formatted)
+        
+        R.radiation(eps,T_s,T_sur,A,h_name,A_name,Ta_name,Tb_name), where eps is the permissivity of the material, T_s
+        the surface temperature, T_sur the far away surface temperature, A the surface area.
+        
+        R.contact(R,A,R_name,A_name,Ta_name,Tb_name), where R is the contact resistance, typically obtained from a table
+        A is the surface area
+        
+        R.display_equation(index) displays the heat flux/rate equations for a given resistance. index is the number of 
+        your resistance (you specify)
+        
+        Outputs include R[i].R the resistance of element i, R[i].h the convection or radiation coefficient.
+        
+        Functions include
+        R_tot = res.serial_sum(R,first_resistance,last_resistance) sums serial resistance
+        R_tot = res.parallel_sum(R,first_resistance,last_resistance) sums parallel resistance
+        
+        
+        
         """
     def __init__(self,name,units):
         self.name = name
