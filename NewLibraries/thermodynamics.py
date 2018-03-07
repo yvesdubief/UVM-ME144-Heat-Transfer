@@ -2,10 +2,19 @@
 import numpy as np
 import scipy
 import scipy.optimize
-from scipy.constants.constants import C2K
-from scipy.constants.constants import K2C
-from scipy.constants.constants import F2K
-from scipy.constants.constants import K2F
+from scipy.constants import convert_temperature
+def C2K(T):
+    return convert_temperature(T,'Celsius','Kelvin')
+def C2F(T):
+    return convert_temperature(T,'Celsius','Fahrenheit')
+def F2K(T):
+    return convert_temperature(T,'Fahrenheit','Kelvin')
+def F2C(T):
+    return convert_temperature(T,'Fahrenheit','Celsius')
+def K2F(T):
+    return convert_temperature(T,'Kelvin','Fahrenheit')
+def K2C(T):
+    return convert_temperature(T,'Kelvin','Celsius')
 import scipy.constants as sc
 
 def interpolate_table(target,index,xquantity,yquantity):

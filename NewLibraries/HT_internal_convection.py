@@ -87,7 +87,7 @@ class PipeFlow(object):
             f_1 = 1./(-2.0*np.log10(e/3.71))**2
         else:
             f_1 = f_0
-        f_guess = np.max(f_0,f_1)
+        f_guess = np.max([f_0,f_1])
         #f_guess = 0.04
         def f_tmp(x):
             y = (-2*np.log10((2.51/(Re*np.sqrt(x))) + (e/(3.71))) - 1.0/np.sqrt(x))
