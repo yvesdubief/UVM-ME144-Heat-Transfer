@@ -18,7 +18,7 @@ class HorizontalCylinder(object):
         cyl = natconv.HorizontalCylinder("Churchill-Chu", Ra, Pr = xx)
     """
 
-    def __init__(self,correlation, Ra, Pr = 0.0):
+    def __init__(self,correlation="Morgan", Ra=0.0, Pr = 0.0):
         self.correlation = correlation
         self.Ra = Ra
         if correlation == "Morgan":
@@ -93,10 +93,10 @@ class VerticalEnclosure(object):
                 print('Ra is too high, got nothing for you')
                 self.Nu = np.inf
 
-def Gr(g,beta,DT,D,nu):
+def Gr(g=9.81,beta=0.0,DT=0.0,D=0.0,nu=1.0):
     return (g*beta*DT*D**3)/(nu**2)
 
-def Ra(g,beta,DT,D,nu,alpha):
+def Ra(g=9.81,beta=0.0,DT=0.0,D=0.0,nu=1.0,alpha=1.0):
     return (g*beta*DT*D**3)/(nu*alpha)
 
 

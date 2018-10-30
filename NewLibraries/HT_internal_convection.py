@@ -34,8 +34,10 @@ class PipeFlow(object):
             The Re is optional if omitted, the Reynolds number calculated in the object PipeFlow will be used
         
         """
-    def __init__(self,D, Re=0.0, Um = 0.0 , mdot = 0.0, nu = 0.0, rho = 0.0 ):
+    def __init__(self,D, Re=0.0, Um = 0.0 , mdot = 0.0, nu = 0.0, rho = 0.0, L = 1.0 ):
         self.D = D
+        self.L = L
+            
         if Re == 0.0:
             if Um != 0.0 and nu != 0.0:
                 Re = Um*D/nu
@@ -44,6 +46,7 @@ class PipeFlow(object):
                 Re = Um*D/nu
             else:
                 print("Warning if Re == 0, Um, D and nu or mdot, rho and nu must be specified")
+                
         self.Re = Re
         if Um == 0.:
             if Re != 0. and nu != 0.:
@@ -55,13 +58,23 @@ class PipeFlow(object):
                  
                 
         self.Um = Um
-        if mdot != 0.0 and rho != 0.0:
-            mdot = rho*Um*np.pi*D**2/4.
+        if mdot == 0.0:
+            if rho != 0.0:
+                mdot = rho*Um*np.pi*D**2/4.
+            else:
+                self.rho = 1.0
+                self.mdot = rho*Um*np.pi*D**2/4.
         self.mdot = mdot
         self.nu = nu
-        if Re == 0.:
+        if Re == 0. and nu != 0.:
             Re = Um*D/nu
         self.Re = Re
+        
+        if rho == 0.0:
+            self.rho = 1.0
+            
+        else:
+            self.rho = rho
             
     
 
@@ -72,6 +85,7 @@ class PipeFlow(object):
         elif Re == 0 and self.Re == 0.0:
             print("Warning Reynolds number is not defined")
         self.f = 64./Re
+        self.dPdx = self.f*(self.L/self.D)*(self.rho*self.Um**2)/2.
 
     def f_turbulent(self,Re = 0.0, eps = 0.0):
         if Re == 0. and self.Re !=0.0:
@@ -94,6 +108,7 @@ class PipeFlow(object):
             return y
         y = scipy.optimize.fsolve(f_tmp, f_guess)
         self.f = y
+        self.dPdx = self.f*(self.L/self.D)*(self.rho*self.Um**2)/2.
         
     def laminar_isothermal(self):
         self.Nu = 3.66
@@ -110,6 +125,8 @@ class PipeFlow(object):
             n = 0.4
         elif (mode == 'cooling'):
             n = 0.3
+        else:
+            print("Warning you have to specify mode='heating' or 'cooling'")
         self.Nu = 0.023*Re**(4./5.)*Pr**n
 
     def Sieder_Tate(self,Pr,mu,mu_s, Re = 0.0):
@@ -117,7 +134,7 @@ class PipeFlow(object):
             Re = self.Re
         else:
             print("Warning Reynolds number is not defined")
-        self.Nu = 0.027*Re**(4./5.)*Pr*(1./3.)*(mu/mu_s)**0.14
+        self.Nu = 0.027*Re**(4/5)*Pr**(1/3)*(mu/mu_s)**0.14
 
     def Gnielinski(self, Pr, f,Re = 0.0):
         if Re == 0. and self.Re !=0:
@@ -155,5 +172,4 @@ def T_mx_Ts_constant(T_s,T_mi,P,mdot,Cp,hbar,x):
 
 def T_mo_T_infty(T_infty,T_mi,P,L,mdot,Cp,R_tot):
     return T_infty-(Tinfty-T_mi)*np.exp(-1/(mdot*Cp*Rtot))
-def pressure_drop_pipe(f,L,rho, Um):
-    return f*(L/self.D)*(rho*Um**2)/2.
+
