@@ -3,7 +3,6 @@
    Function name: parallel_sum(R,nori,nend), performs parallel sum of a resistance object list from nori to nend
    """
 ### definition of thermal resistance ###
-from __future__ import division
 from sympy.interactive import printing
 printing.init_printing(use_latex='mathjax')
 
@@ -82,6 +81,7 @@ class Resistance(object):
                    thickness_name = "L", L_pipe_name = "L", r_a_name = "r_a",r_b_name = "r_b",A_name = "A",\
                    T_a_name = "T_a",T_b_name = "T_b"):
         self.geometry = geo
+        self.k = k
         self.mode = 'conduction'
         self.k_name = k_name
         self.thickness = thickness
@@ -109,6 +109,7 @@ class Resistance(object):
         if self.geometry == 'plane':
             self.R = thickness/(k*A)
         elif self.geometry == 'cylindrical':
+            print(self.r_a,self.r_b,self.L_pipe,self.k)
             if r_b == 0.:
                 print("Warning rb must be specified for cylindrical geometries")
             self.R = np.log(r_b/r_a)/(2.*math.pi*L_pipe*k)

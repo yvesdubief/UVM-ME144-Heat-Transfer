@@ -26,32 +26,30 @@ class Fluid(object):
     """ How to:
         from NewLibraries import thermodynamics as thermo
         
-        air_inlet = thermo.Fluid(material) material can be air, water, argon and krypton (see below for ranges)
-        air_inlet.get_properties(T) to get thermodynamics of the fluid at temperature T in Kelvin.
-        
-        Compute thermodynamics properties of air between -150 C and 400 C, 
+        fluid_of_interest = thermo.Fluid(material,T) material can be air, water, argon and krypton (see below for ranges)
+        and the temperature of the fluid T is in Kelvin.
+        Outputs:
+        The new object computes thermodynamic properties of air between -150 C and 400 C, 
         water between 274K and 373K, argon between 100 and 700K and
         krypton between 150 and 700 K under 1 atm. Argon, krypton and water were obtained 
         through http://webbook.nist.gov/chemistry/fluid/
         More fluids to be added in the future
-        air_inlet.beta thermal expansion coefficient
-        air_inlet.rho density
-        air_inlet.Cp specific heat
-        air_inlet.mu dynamic viscosity
-        air_inlet.k thermal conductivity
-        air_inlet.nu kinematic viscosity
-        air_inlet.alpha thermal diffusivity
-        air_inlet.Pr
-        Outputs:
+        fluid_of_interest.beta thermal expansion coefficient
+        fluid_of_interest.rho density
+        fluid_of_interest.Cp specific heat
+        fluid_of_interest.mu dynamic viscosity
+        fluid_of_interest.k thermal conductivity
+        fluid_of_interest.nu kinematic viscosity
+        fluid_of_interest.alpha thermal diffusivity
+        fluid_of_interest.Pr
+        
         
         """
-    def __init__(self,name):
+    def __init__(self,name,T):
         self.name = name
-        
-    def get_properties(self,T_o):
-        self.T = T_o
+        self.T = T
         if self.name == 'water':
-            if T_o < 274 or T_o > 373:
+            if T < 274 or T > 373:
                 print("Temperature is out of bounds for liquid water")
                 return 
             Ttab,ptab,rhotab,Cptab,mutab,ktab = \
@@ -64,11 +62,11 @@ class Fluid(object):
             dTtab = Ttab[1] - Ttab[0]
             # compute beta from -rho(d rho/dT)
             betatab = -(1./rhotab)*np.gradient(rhotab)/dTtab
-            i = int((T_o-Ttab[0])/dTtab)
+            i = int((T-Ttab[0])/dTtab)
             if (i == Ntab - 1):
                 i == Ntab - 2
         elif self.name == 'argon':
-            if T_o < 100 or T_o > 700:
+            if T < 100 or T > 700:
                 print("Temperature is out of bounds for argon")
                 return 
             Ttab,ptab,rhotab,Cptab,mutab,ktab = \
@@ -81,11 +79,11 @@ class Fluid(object):
             dTtab = Ttab[1] - Ttab[0]
             # compute beta from -rho(d rho/dT)
             betatab = -(1./rhotab)*np.gradient(rhotab)/dTtab
-            i = int((T_o-Ttab[0])/dTtab)
+            i = int((T-Ttab[0])/dTtab)
             if (i == Ntab - 1):
                 i == Ntab - 2
         elif self.name == 'krypton':
-            if T_o < 150 or T_o > 740:
+            if T < 150 or T > 740:
                 print("Temperature is out of bounds for krypton")
                 return 
             Ttab,ptab,rhotab,Cptab,mutab,ktab = \
@@ -98,11 +96,11 @@ class Fluid(object):
             dTtab = Ttab[1] - Ttab[0]
             # compute beta from -rho(d rho/dT)
             betatab = -(1./rhotab)*np.gradient(rhotab)/dTtab
-            i = int((T_o-Ttab[0])/dTtab)
+            i = int((T-Ttab[0])/dTtab)
             if (i == Ntab - 1):
                 i == Ntab - 2
         elif self.name == 'air':
-            if T_o < C2K(-150.) or T_o > C2K(400.):
+            if T < C2K(-150.) or T > C2K(400.):
                 print("Temperature is out of bounds of the table for air")
                 return
             Ttab,rhotab,Cptab,ktab,nutab,betatab,Prtab = \
@@ -115,7 +113,7 @@ class Fluid(object):
             alphatab = ktab/(rhotab*Cptab)
             Prtab = nutab/alphatab
             i = 0
-            while (Ttab[i] < T_o) and (i<Ntab):
+            while (Ttab[i] < T) and (i<Ntab):
                 i += 1
             i -=1
             if (i == Ntab - 1):
@@ -125,15 +123,15 @@ class Fluid(object):
             print("warning, no table available for", self.name)
             return
         
-        self.rho = interpolate_table(T_o,i,Ttab,rhotab)
-        self.Cp = interpolate_table(T_o,i,Ttab,Cptab)
-        self.mu = interpolate_table(T_o,i,Ttab,mutab)
-        self.k = interpolate_table(T_o,i,Ttab,ktab)
-        self.nu = interpolate_table(T_o,i,Ttab,nutab)
-        self.alpha = interpolate_table(T_o,i,Ttab,alphatab)
-        self.Pr = interpolate_table(T_o,i,Ttab,Prtab)
+        self.rho = interpolate_table(T,i,Ttab,rhotab)
+        self.Cp = interpolate_table(T,i,Ttab,Cptab)
+        self.mu = interpolate_table(T,i,Ttab,mutab)
+        self.k = interpolate_table(T,i,Ttab,ktab)
+        self.nu = interpolate_table(T,i,Ttab,nutab)
+        self.alpha = interpolate_table(T,i,Ttab,alphatab)
+        self.Pr = interpolate_table(T,i,Ttab,Prtab)
         if (self.name == 'air'):
-            self.beta = 1./T_o
+            self.beta = 1./T
         else:
-            self.beta = interpolate_table(T_o,i,Ttab,betatab)
+            self.beta = interpolate_table(T,i,Ttab,betatab)
         

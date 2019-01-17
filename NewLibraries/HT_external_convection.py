@@ -3,7 +3,7 @@
     Object name 3: NoncircularCylinder
     Object name 4: BankofTubes
 """
-from __future__ import division
+
 from sympy.interactive import printing
 printing.init_printing(use_latex='mathjax')
 
