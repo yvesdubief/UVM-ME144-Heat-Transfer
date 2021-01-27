@@ -215,3 +215,4 @@ def parallel_sum(R,nori,nend):
         sum += 1./R[i].R
     return 1./sum
 
+

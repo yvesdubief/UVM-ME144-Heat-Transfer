@@ -173,3 +173,4 @@ def T_mx_Ts_constant(T_s,T_mi,P,mdot,Cp,hbar,x):
 def T_mo_T_infty(T_infty,T_mi,P,L,mdot,Cp,R_tot):
     return T_infty-(Tinfty-T_mi)*np.exp(-1/(mdot*Cp*Rtot))
 
+

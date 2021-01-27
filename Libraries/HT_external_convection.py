@@ -448,3 +448,4 @@ def N_L_for_given_To(T_s,T_i,T_o,D,hbar,rho,V_i,S_T,Cp):
 def Delta_T_lm(T_s,T_i,T_o):
     return ((T_s-T_i)-(T_s-T_o))/np.log((T_s-T_i)/(T_s-T_o))
 
+
