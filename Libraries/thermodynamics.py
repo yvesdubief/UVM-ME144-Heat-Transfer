@@ -45,9 +45,13 @@ class Fluid(object):
         
         
         """
-    def __init__(self,name,T):
+    def __init__(self,name,T,P = 101325.01):
         self.name = name
         self.T = T
+        self.P = P
+        if P != 101325.01:
+            print("All available tables are for P=1ATM, reverting to P=101325.01Pa")
+            self.P = 101325.01
         if self.name == 'water':
             if T < 274 or T > 373:
                 print("Temperature is out of bounds for liquid water")

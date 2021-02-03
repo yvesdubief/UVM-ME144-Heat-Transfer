@@ -80,46 +80,7 @@ class ExtSurfaces(object):
             print("boundary condition is not properly defined")
         self.T_x = self.T_infty + self.theta_over_theta_b*self.theta_b
         
-    def equations(self,T_b_name,T_infty_name,T_L_name,k_name,h_name,P_name,Ac_name,L_name):
-        T_x_sym = sym.symbols(r"T(x)")
-        T_b_sym = sym.symbols(T_b_name)
-        T_infty_sym = sym.symbols(T_infty_name)
-        T_L_sym = sym.symbols(T_L_name)
-        theta_sym = sym.symbols(r"\theta(x)")
-        eq_theta = sym.Eq(theta_sym,T_x_sym-T_infty_sym)
-        theta_b_sym = sym.symbols(r"\theta_b")
-        eq_theta_b = sym.Eq(theta_b_sym,T_b_sym-T_infty_sym)
-        theta_L_sym = sym.symbols(r"{\theta}_L")
-        eq_theta_L = sym.Eq(theta_L_sym,T_L_sym-T_infty_sym)
-        k_sym = sym.symbols(k_name)
-        h_sym = sym.symbols(h_name)
-        P_sym = sym.symbols(P_name)
-        Ac_sym = sym.symbols(Ac_name)
-        L_sym = sym.symbols(L_name)
-        m_sym = sym.symbols(r"m")
-        M_sym = sym.symbols(r"M")
-        x_sym = sym.symbols(r"x")
-        eq_m2 = sym.Eq(m_sym**2,h_sym*P_sym/(k_sym*Ac_sym))
-        eq_M = sym.Eq(M_sym,sym.sqrt(h_sym*P_sym*k_sym*Ac_sym)*theta_b_sym)
-        q_f_sym = sym.symbols(r"q_f")
-        if self.bc == 'convection':
-            eq_q = sym.Eq(q_f_sym,M_sym*(sym.sinh(m_sym*L_sym) + (h_sym/(m_sym*k_sym))*sym.cosh(m_sym*L_sym))/\
-                    (sym.cosh(m_sym*L_sym) + (h_sym/(m_sym*k_sym))*sym.sinh(m_sym*L_sym)))
-            eq_temp = sym.Eq(theta_sym/theta_b_sym,(sym.cosh(m_sym*(L_sym-x_sym)) + (h_sym/(m_sym*k_sym))*sym.sinh(m_sym*(L_sym-x_sym)))/\
-                    (sym.cosh(m_sym*L_sym) + (h_sym/(m_sym*k_sym))*sym.sinh(m_sym*L_sym)))
-        elif self.bc == "adiabatic":
-            eq_q = sym.Eq(q_f_sym,M_sym*sym.tanh(m_sym*L_sym))
-            eq_temp = sym.Eq(theta_sym/theta_b_sym,sym.cosh(m_sym*(L_sym-x_sym))/sym.cosh(m_sym*L_sym))
-        elif self.bc == "isothermal":
-            eq_q = sym.Eq(q_f_sym,M_sym*sym.cosh(m_sym*L_sym - theta_L_sym/theta_b_sym)/sym.sinh(m_sym*L_sym))
-            eq_temp = sym.Eq(theta_sym/theta_b_sym,((theta_L_sym/theta_b_sym)*sym.sinh(m_sym*L_sym)+sym.sinh(m_sym*L_sym - x_sym))\
-                                        /sym.sinh(m_sym*L_sym))
-        elif self.bc == 'infinite':
-            eq_q = sym.Eq(q_f_sym,M_sym)
-            eq_temp = sym.Eq(theta_sym/theta_b_sym,sym.exp(-m_sym*x_sym))
-        else:
-            print("boundary condition is not properly defined")
-        return display(eq_theta,eq_theta_b,eq_theta_L,eq_m2,eq_M,eq_q,eq_temp)
+    
             
             
         

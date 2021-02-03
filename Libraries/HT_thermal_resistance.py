@@ -28,36 +28,30 @@ class Resistance(object):
         
         then
         
-        R.conduction(geo, k, thickness = 0.0, A = 1.0, L_pipe = 1.0, r_a = 0., r_b = 0.,k_name = "k",\
-                   thickness_name = "L", L_pipe_name = "L", r_a_name = "r_a",r_b_name = "r_b",A_name = "A",\
-                   T_a_name = "T_a",T_b_name = "T_b"),
-        where geo can only be 'plane','cylindrical' or 'spherical'
-        The minimum number of arguments are:
-        R.conduction("plane", k, thickness = a) for heat flux (where a>0)
-        R.conduction("plane", k, thickness = a, A = lengthorarea) for heat rate by unit length (m) or for heat rate (m^2)
-        R.conduction("cylindrical",k, r_a = a, r_b = b) for heat rate per unit length of the pipe
-        R.conduction("cylindrical",k, r_a = a, r_b = b, L_pipe = L) for heat rate 
-        R.conduction("spherical",k, r_a = a, r_b = b) for heat rate
+        For conduction, there are 3 options:
         
-        thickness is the thickness of the material for plane conduction.
-        r_a is the inner radius of the cylinder/sphere, r_b is the outer radius of the cylinder/sphere.
-        A is the surface area of the system for plane conduction
-        L_pipe is the pipe length for cylindrical conduction.
-        All arguments ending with _name are used to write heat flux/rate equations(they are strings preferably 
-        LaTeX formatted, without $$)
+        - R.cond_plane(k, L, A = 1.0) for planar conduction: k is the thermal conductivity,
+                L is the thickness of the wall, and A is the optional surface area (=1 by default)
+        - R.cond_cylinder(k , ra, rb, L = 1.0, angle = 2.*math.pi) for conduction in a 
+                cylindrical shell between the radii ra (internal) and rb (external). L is the length
+                of the shell (optional, default = 1) and angle is angular dimension of shell, also 
+                optional and set to a full revolution by default (2 pi)
+        - R.cond_sphere(k, ra, rb, scale = 1.0) for conductuion within a spherical shell bounded by radii ra and rb
+            ra < rb. The optional parameter scale allows to calculate the thermal resistance for a fraction
+            of a spherical shell. For instance a cornea is about 1/3 of spherical shell, so scale = 1./3.
         
-        R.convection(h,A,h_name = "h",A_name = "A",T_a_name = "T_a",Tb_name = "T_b"), where h is the convection coefficient (W/m^2K) and A is 
-        the surface area. All arguments ending with _name are used to write the flux equations(they are strings 
-        preferably LaTeX formatted)
-        The minimum number of arguments are:
-        R.convection(h,A)
+        Convection:
+        - R.convection(h, A = 1.0), where h is the convection coefficient (W/m^2K) and A is 
+        the surface area (optional, default is unit surface aera 1 m^2)
         
-        R.radiation(eps,T_s,T_sur,A,h_name = "h_r",A_name = "A",Ts_name = "T_s",Tsur_name = "T_{sur}"), where eps is the permissivity of the material, T_s
-        the surface temperature, T_sur the far away surface temperature, A the surface area.
-        The minimum number of arguments are:
-        R.radiation(eps,T_s,T_sur,A)
+        Radiation:
+        - R.radiation(eps, T_s, T_sur, A = 1.0), where eps is the permissivity of the material, T_s
+        the surface temperature, T_sur the far away surface temperature, A the surface area (optional, 
+        by default A is the unit surface area 1 m^2).
         
-        R.contact(R,A,R_name= "R_{t}",A_name = "A",T_a_name = "T_a",Tb_name = "T_b"), where R is the contact resistance, typically obtained from a table
+        Contact:
+        
+        - R.contact(R,A,R_name= "R_{t}",A_name = "A",T_a_name = "T_a",Tb_name = "T_b"), where R is the contact resistance, typically obtained from a table
         A is the surface area
         The minimum number of arguments are:
         R.contact(R,A)
@@ -65,7 +59,8 @@ class Resistance(object):
         R.display_equation(index) displays the heat flux/rate equations for a given resistance. index is the number of 
         your resistance (you specify)
         
-        Outputs include R[i].R the resistance of element i, R[i].h the convection or radiation coefficient.
+        Outputs:
+        - R[i].R the resistance of element i, R[i].h the convection or radiation coefficient.
         
         Functions include
         R_tot = res.serial_sum(R,first_resistance,last_resistance) sums serial resistance
@@ -77,130 +72,59 @@ class Resistance(object):
     def __init__(self,name,units):
         self.name = name
         self.units = units
-    def conduction(self,geo, k, thickness = 0.0, A = 1.0, L_pipe = 1.0, r_a = 0., r_b = 0.,k_name = "k",\
-                   thickness_name = "L", L_pipe_name = "L", r_a_name = "r_a",r_b_name = "r_b",A_name = "A",\
-                   T_a_name = "T_a",T_b_name = "T_b"):
-        self.geometry = geo
+    def cond_plane(self, k, L, A = 1.0):
+        self.mode = "conduction"
+        self.geometry = "planar"
         self.k = k
-        self.mode = 'conduction'
-        self.k_name = k_name
-        self.thickness = thickness
-        self.L_pipe = L_pipe
-        self.r_a = r_a
-        self.r_b = r_b
-        self.r_a_name = r_a_name
-        self.r_b_name = r_b_name
-        self.surface_name = A_name
-        if geo == 'plane':
-            if thickness == 0.:
-                print("Warning you need to input thickness = a (where a>0) for plane conduction")
-            self.surface_scale = A
-            self.surface_name = A_name
-        elif geo == 'cylindrical':
-            self.surface_scale = L_pipe
-            self.surface_name = L_pipe_name
-        if geo != 'plane':
-            if r_a == 0. or r_b == 0.:
-                print("Warning you need to input r_a = a, r_b = b (where a,b>0) for cylindrical or spherical conduction")
-        self.T_a_name = T_a_name
-        self.T_b_name = T_b_name
-        self.thickness_name = thickness_name
-        self.L_pipe_name = L_pipe_name
-        if self.geometry == 'plane':
-            self.R = thickness/(k*A)
-        elif self.geometry == 'cylindrical':
-            print(self.r_a,self.r_b,self.L_pipe,self.k)
-            if r_b == 0.:
-                print("Warning rb must be specified for cylindrical geometries")
-            self.R = np.log(r_b/r_a)/(2.*math.pi*L_pipe*k)
-        elif self.geometry == 'spherical':
-            if rb == 0.:
-                print("Warning rb must be specified for spherical geometries")
-            self.R = (1./r_a-1./r_b)/(4.*math.pi*k)
-        else :
-            print("geometry is not plane, cylindrical or spherical, cannot compute")
-    def convection(self,h,A,h_name = "h",A_name = "A",T_a_name = "T_a",T_b_name = "T_b"):
+        if k <= 0.:
+            print("problem with the definition of thermal conductivity")
+        self.L = L
+        self.A = A
+        self.R = self.L / (self.k * self.A)
+    def cond_cylinder(self, k , ra, rb, L = 1.0, angle = 2.*math.pi):
+        self.mode = "conduction"
+        self.geometry = "cylindrical"
+        self.k = k
+        if k <= 0.:
+            print("problem with the definition of thermal conductivity")
+        self.ra = ra
+        self.rb = rb
+        if ra*rb <= 0.:
+            print("problem with the definition of radii")
+        self.L = L
+        self.angle = angle
+        self.R = np.log(rb/ra)/(angle*L*k)
+    def cond_sphere(self, k, ra, rb, scale = 1.0):
+        self.mode = "conduction"
+        self.geometry = "spherical"
+        self.k = k
+        if k <= 0.:
+            print("problem with the definition of thermal conductivity")
+        self.ra = ra
+        self.rb = rb
+        if ra*rb <= 0.:
+            print("problem with the definition of radii")
+        self.R = (1./r_a-1./r_b)/(scale*4.*math.pi*k)
+        
+    
+    def convection(self,h,A):
         self.mode = 'convection'
+        self.geometry = "whatever"
         self.R = 1./(h*A)
-        self.surface_scale = A
+        self.A = A
         self.h = h
-        self.h_name = h_name
-        self.surface_name = A_name
-        self.T_a_name = T_a_name
-        self.T_b_name = T_b_name
-    def radiation(self,eps,T_s,T_sur,A,h_name = "h_r",A_name = "A",Ts_name = "T_s",Tsur_name = "T_{sur}"):
+    def radiation(self,eps,T_s,T_sur,A):
         self.R = 1./(eps*sc.sigma*(T_s+T_sur)*(T_s**2+T_sur**2)*A)
         self.mode = 'radiation'
-        self.surface_scale = A
+        self.geometry = "whatever"
+        self.A = A
         self.h = eps*sc.sigma*(T_s+T_sur)*(T_s**2+T_sur**2)
-        self.surface_name = A_name
-        self.h_name = h_name
-        self.Ts_name = Ts_name
-        self.Tsur_name = Tsur_name
-    def contact(self,R,A,R_name= "R_{t}",A_name = "A",T_a_name = "T_a",T_b_name = "T_b"):
+    def contact(self,R,A=1.0):
         self.R = R/A
+        self.geometry = 'whatever'
         self.mode = 'contact'
-        self.R_name = R_name
-        self.surface_scale = A
-        self.surface_name = A_name
-        self.T_a_name = T_a_name
-        self.T_b_name = T_b_name
         
-    def display_equation(self,index):
-
-        Tasym = sym.symbols(self.T_a_name)
-        Tbsym = sym.symbols(self.T_b_name)
-        if self.units == 'W':
-            Asym = sym.symbols(self.surface_name)
-            namesym = "q_"+str(index)
-        elif self.units == 'W/m':
-            Asym = sym.symbols(self.surface_name)
-            namesym = "q'_"+str(index)
-        elif self.units == 'W/m^2':
-            namesym = "q''_"+str(index)
-        else:
-            print('units are not properly defined')
-        qsym = sym.symbols(namesym)
-        Rsym = sym.symbols(self.name[1:-1])
-        eq = sym.Eq(qsym,(1/Rsym)*(Tasym-Tbsym))
-        if self.mode == 'conduction':
-            thicksym = sym.symbols(self.thickness_name)
-            rasym = sym.symbols(self.r_a_name)
-            rbsym = sym.symbols(self.r_b_name)
-            cstsym = sym.symbols(self.k_name)
-            if self.geometry == 'plane':
-                if self.units != 'W/m^2':
-                    eq1 = sym.Eq(qsym,cstsym*Asym/thicksym*(Tasym-Tbsym))
-                else:
-                    eq1 = sym.Eq(qsym,cstsym/thicksym*(Tasym-Tbsym))
-            elif self.geometry == 'cylindrical':
-                if self.units == 'W':
-                    eq1 = sym.Eq(qsym,2*sym.pi*cstsym/sym.log(rbsym/rasym)*Asym*(Tasym-Tbsym))
-                else:
-                    eq1 = sym.Eq(qsym,2*sym.pi*cstsym/sym.log(rbsym/rasym)*(Tasym-Tbsym))
-            elif self.geometry == 'spherical':
-                eq1 = sym.Eq(qsym,4*sym.pi*cstsym/(1/rasym-1/rbsym)*(Tasym-Tbsym))
-                
-        elif self.mode == 'convection':
-            cstsym = sym.symbols(self.h_name)
-            if self.units == 'W/m^2':
-                eq1 = sym.Eq(qsym,cstsym*(Tasym-Tbsym))
-            else:
-                eq1 = sym.Eq(qsym,cstsym*Asym*(Tasym-Tbsym))
-        elif self.mode == 'radiation':
-            cstsym = sym.symbols(self.h_name)
-            if self.units == 'W/m^2':
-                eq1 = sym.Eq(qsym,cstsym*(Tasym-Tbsym))
-            else:
-                eq1 = sym.Eq(qsym,cstsym*Asym*(Tasym-Tbsym))
-        elif self.mode == 'contact':
-            cstsym = sym.symbols(self.R_name)
-            if self.units == 'W/m^2':
-                eq1 = sym.Eq(qsym,cstsym*(Tasym-Tbsym))
-            else:
-                eq1 = sym.Eq(qsym,(Asym/cstsym)*(Tasym-Tbsym))
-        
-        return display(eq,eq1)
+    
         
 ### summation of thermal resistance (R is a vector) ###
 def serial_sum(R,nori,nend):

@@ -107,7 +107,7 @@ class PipeFlow(object):
             y = (-2*np.log10((2.51/(Re*np.sqrt(x))) + (e/(3.71))) - 1.0/np.sqrt(x))
             return y
         y = scipy.optimize.fsolve(f_tmp, f_guess)
-        self.f = y
+        self.f = y[0]
         self.dPdx = self.f*(self.L/self.D)*(self.rho*self.Um**2)/2.
         
     def laminar_isothermal(self):

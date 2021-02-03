@@ -4,7 +4,7 @@ University of Vermont Mechanical Engineering Heat Transfer Course
 <ul>
 <li> Install github and clone this repository or download</li>
 <li> Download the lastest Python 3 from https://www.anaconda.com/download </li>
-  <li> In a terminal or in the anaconda prompt, execute <b>pip install SchemDraw</b>
+  <li> In a terminal or in the anaconda prompt, execute <b>pip install schemdraw</b>
 </ul>
 
 ## Use
