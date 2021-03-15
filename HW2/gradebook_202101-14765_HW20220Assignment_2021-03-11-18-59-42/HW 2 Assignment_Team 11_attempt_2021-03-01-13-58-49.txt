@@ -1,0 +1,15 @@
+Name: Team 11
+Assignment: HW 2 Assignment
+Date Submitted: Monday, March 1, 2021 1:58:49 PM EST
+Current Grade: Needs Grading
+
+Submission Field:
+There is no student submission text data for this assignment.
+
+Comments:
+There are no student comments for this assignment.
+
+Files:
+	Original filename: HTpy-HW2-Final.ipynb
+	Filename: HW 2 Assignment_Team 11_attempt_2021-03-01-13-58-49_HTpy-HW2-Final.ipynb
+

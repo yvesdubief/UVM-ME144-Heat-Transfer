@@ -1,0 +1,19 @@
+Name: Team 7
+Assignment: HW 2 Assignment
+Date Submitted: Friday, February 26, 2021 9:42:29 AM EST
+Current Grade: Needs Grading
+
+Submission Field:
+There is no student submission text data for this assignment.
+
+Comments:
+Please note, our solution to problem 5 is interactive. As the user can input the exact characteristics of their window for the most accurate result.
+
+Thanks,
+
+Team 7
+
+Files:
+	Original filename: HTpy-HW2 (3).ipynb
+	Filename: HW 2 Assignment_Team 7_attempt_2021-02-26-09-42-29_HTpy-HW2 (3).ipynb
+

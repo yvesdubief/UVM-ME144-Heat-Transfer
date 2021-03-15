@@ -1,0 +1,15 @@
+Name: Team 8
+Assignment: HW 2 Assignment
+Date Submitted: Monday, March 1, 2021 11:54:36 PM EST
+Current Grade: Needs Grading
+
+Submission Field:
+There is no student submission text data for this assignment.
+
+Comments:
+There are no student comments for this assignment.
+
+Files:
+	Original filename: HTpy-HW2-Final-Team8.ipynb
+	Filename: HW 2 Assignment_Team 8_attempt_2021-03-01-23-54-36_HTpy-HW2-Final-Team8.ipynb
+

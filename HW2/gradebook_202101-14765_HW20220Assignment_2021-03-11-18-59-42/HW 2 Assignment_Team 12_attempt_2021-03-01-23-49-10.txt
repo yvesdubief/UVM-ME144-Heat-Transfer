@@ -1,0 +1,15 @@
+Name: Team 12
+Assignment: HW 2 Assignment
+Date Submitted: Monday, March 1, 2021 11:49:10 PM EST
+Current Grade: Needs Grading
+
+Submission Field:
+There is no student submission text data for this assignment.
+
+Comments:
+There are no student comments for this assignment.
+
+Files:
+	Original filename: Beck Griswold - HW2-Final.ipynb
+	Filename: HW 2 Assignment_Team 12_attempt_2021-03-01-23-49-10_Beck Griswold - HW2-Final.ipynb
+
