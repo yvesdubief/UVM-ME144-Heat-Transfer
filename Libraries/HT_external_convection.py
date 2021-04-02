@@ -12,7 +12,11 @@ from IPython.display import display,Image, Latex
 import numpy as np
 import math
 import scipy.constants as sc
-
+import sys
+try:
+    import thermodynamics as thermo
+except ModuleNotFoundError:
+    from Libraries import thermodynamics as thermo
 import sympy as sym
 #from sympy import *
 
@@ -63,12 +67,12 @@ class FlatPlate(object):
         if x == 0.:
             self.delta_x = 0.
             self.delta_Tx = 0.
-            self.C_fx = 0.
+            self.Cf_x = 0.
             self.Nu_x = 0.
         else:
             if self.regime == "laminar":
                 self.delta_x = 5.0*self.x/np.sqrt(self.Re_x)
-                self.C_fx = 0.664*np.power(self.Re_x,-1./2.)
+                self.Cf_x = 0.664*np.power(self.Re_x,-1./2.)
                 if self.thermal_bc == "isothermal":
                     self.Nu_x = 0.332*np.power(self.Re_x,1./2.)*np.power(self.Pr,1./3.)
                 elif self.thermal_bc == "heat flux":
@@ -79,7 +83,7 @@ class FlatPlate(object):
                             np.power(1.-np.power(self.xi/self.x,3./4.),1./3.)
             elif self.regime == "turbulent":
                 self.delta_x = 0.37*self.x*np.power(self.Re_x,-1./5.)
-                self.C_fx = 0.0592*np.power(self.Re_x,-1./5.)
+                self.Cf_x = 0.0592*np.power(self.Re_x,-1./5.)
                 if self.thermal_bc == "isothermal":
                     self.Nu_x = 0.0296*np.power(self.Re_x,4./5.)*np.power(self.Pr,1./3.)
                 elif self.thermal_bc == "heat flux":
@@ -91,7 +95,7 @@ class FlatPlate(object):
             elif self.regime == "mixed":
                 if self.x < self.x_c:
                     self.delta_x = 5.0*self.x/np.sqrt(self.Re_x)
-                    self.C_fx = 0.664*np.power(self.Re_x,-1./2.)
+                    self.Cf_x = 0.664*np.power(self.Re_x,-1./2.)
                     if self.thermal_bc == "isothermal":
                         self.Nu_x = 0.332*np.power(self.Re_x,1./2.)*np.power(self.Pr,1./3.)
                     elif self.thermal_bc == "heat flux":
@@ -102,7 +106,7 @@ class FlatPlate(object):
                             np.power(1.-np.power(self.xi/self.x,3./4.),1./3.)
                 else:
                     self.delta_x = 0.37*self.x*np.power(self.Re_x,-1./5.)
-                    self.C_fx = 0.0592*np.power(self.Re_x,-1./5.)
+                    self.Cf_x = 0.0592*np.power(self.Re_x,-1./5.)
                     if self.thermal_bc == "isothermal":
                         self.Nu_x = 0.0296*np.power(self.Re_x,4./5.)*np.power(self.Pr,1./3.)
                     elif self.thermal_bc == "heat flux":
@@ -119,7 +123,7 @@ class FlatPlate(object):
         if x == 0.:
             print("The length cannot be zero")
         if self.regime == "laminar":
-            self.C_fave = 1.328*np.power(self.Re_x,-1./2.)
+            self.Cf_ave = 1.328*np.power(self.Re_x,-1./2.)
             if self.thermal_bc == "isothermal" or self.thermal_bc == "heat flux":
                 self.Nu_ave = 0.664*np.power(self.Re_x,1./2.)*np.power(self.Pr,1./3.)
             elif self.thermal_bc == "unheated starting length":
@@ -128,7 +132,7 @@ class FlatPlate(object):
                 self.Nu_ave = 0.664*np.power(self.Re_x,1./2.)*np.power(self.Pr,1./3.)*\
                               x/(x-self.xi)*np.power(1.-np.power(self.xi/x,(p+1.)/(p+2.)),p/(p+1.))
         elif self.regime == "turbulent":
-            self.C_fave = 0.074*np.power(self.Re_x,-1./5.)
+            self.Cf_ave = 0.074*np.power(self.Re_x,-1./5.)
             if self.thermal_bc == "isothermal" or self.thermal_bc == "heat flux":
                 self.Nu_ave = 0.037*np.power(self.Re_x,4./5.)*np.power(self.Pr,1./3.)
             elif self.thermal_bc == "unheated starting length":
@@ -329,58 +333,77 @@ class NonCircularCylinder(object):
 class BankofTubes(object):
     """ Nusselt correlations for flow across banks of tubes
     import HT_external_convection.py as extconv
-        
-    bank =extconv.BankofTubes(arrangement,V_i,D,nu,Pr,Pr_s,S_L,S_T,N_L,N_T) where 
+    bank = extconv.BankofTubes('aligned','air',T_i,T_s,T_o,"C",V_i,D,S_L,S_T,N_L=1)
+    **Input:** 
     arrangement = "aligned" tubes are aligned in row and column
                   "staggered" tubes are staggered from one row to the next
+    fluidspecie = 'air', 'water' or any other specie available in library thermodynamics
+    T_i = inlet temperature
+    T_s = tube surface temperature
+    T_o = outlet temperature, provide a guess < T_s if unknown
     V_i: Inlet velocity
-    Pr: Prandtl number at arithmetic mean temperature
-    Pr_s: Prandtl number at surface temperature
     S_L: tube center to tube center separation  between two consecutive rows (perpendicular to the flow)
     S_T: tube center to tube center separation  between two consecutive rows (aligned with the flow)
-    N_L: number of rows perpendicular to flow
-    N_T: number of rows aligned with flow if unknown giev your best guess. 
+    N_L: number of rows aligned with flow if unknown give your best guess (default =1)
     
-    Output: bank.Nu: average Nusselt number
-            bank.arrangement,.Re,.Pr,.Pr_s,.S_L,.S_T,.N_L,.N_T,.N=self.N_L*self.N_T
+    Output:
+    bank.T_m: arithmetic mean of T_i and T_o
+    bank.Nu: average Nusselt number
+    bank.Delta_T_lm: Log mean temperature difference
+    bank.rho_i: inlet fluid density
+    bank.mu_m: fluid viscosity at T_m
+    bank.k_m: fluid thermal conductivity at T_m
+    bank.Cp_m: Specific heat at T_m
+    bank.Pr_m: Prandtl number at T_m
+    bank.Pr_s: Prandtl number at T_s
+    bank.Vmax: Max fluid velocity based on arrangement
+    bank.Re: Reynolds number of the system
+    
+    bank.Nu: average Nusselt number
+    bank.hbar: average heat transfer coefficient
     
     Functions:        
-    bank.heat_rate(hbar,D,T_s,T_i,T_o) returns the heart per tube length based on the average convection coefficient
-    bank.Vmax
-    hbar = bank.Nu*k/D, the tube diameter and the log mean temperature obtained from the function
-    Delta_T_lm(T_s,T_i,T_o) where T_s is the surface temperature, T_i is the inlet temperature, T_o the outlet
-    The outlet temperature is calculated from the function
+    bank.heat_rate(N_T,N_L,L=1) creates bank.q, the heat rate per tube length is L is omitted  
+                or total heat rate if L is provided, based on the average convection coefficient
+    bank.temperature_outlet_tube_banks(N_T,N_L) overwite bank.T_o (useful if T_o is unkown and you provided a 
+        guess. Rerun the object with new T_o to adjust Nu)
+    bank.pressure_drop(N_L,f,chi) creates bank.Delta_p the pressure drop across the bank. f and chi must
+        be extrapolated from graphs (see book or notebook)
     
-    T_o = extconv.temperature_outlet_tube_banks(T_s,T_i,D,N,N_T,hbar,rho_i,V_i,S_T,Cp_i)
-    
-    Note that the density and specific heat are estimated at T_i
-    
-    Other functions include:
-    N_L = extconv.N_L_for_given_To(T_s,T_i,T_o,D,hbar,rho_i,V_i,S_T,Cp_i) which gives the Number of rows for a given T_o
-    Note that the density and specific heat are estimated at T_i
-    
-    and
-    
-    T_lm = extconv.Delta_T_lm(T_s,T_i,T_o) which calculates the log mean
-    
-    self.Vmax
+
     """
-    def __init__(self,arrangement,V_i,D,nu,Pr,Pr_s,S_L,S_T,N_L,N_T):
+    def __init__(self,arrangement,fluidspecie,T_i,T_s,T_o,unit,V_i,D,S_L,S_T,N_L=1):
         self.arrangement = arrangement
-        self.Pr = Pr
-        self.Pr_s = Pr_s
+        self.T_i = T_i
+        self.T_s = T_s
+        self.V_i = V_i
+        if (T_o == T_s):
+            print("T_o and T_s cannot be equal, setting T_o to (T_i+T_s)/2 (think of it as your first guess)")
+            T_o = (T_i+T_s)/2.
+        self.T_o = T_o
+        T_m = (T_i + T_o)/2.
+        self.T_m = T_m
+        self.Delta_T_lm = ((T_s-T_i)-(T_s-T_o))/np.log((T_s-T_i)/(T_s-T_o))
+        self.fluid = fluidspecie
+        fluid_i = thermo.Fluid(fluidspecie,T_i,unit)
+        fluid_m = thermo.Fluid(fluidspecie,T_m,unit)
+        fluid_s = thermo.Fluid(fluidspecie,T_s,unit)
+        self.rho_i = fluid_i.rho
+        self.mu_m = fluid_m.mu
+        self.k_m = fluid_m.k
+        self.Cp_m = fluid_m.Cp
+        self.Pr_m = fluid_m.nu/fluid_m.alpha
+        self.Pr_s = fluid_s.nu/fluid_s.alpha
         self.S_L = S_L
         self.S_T = S_T
         self.N_L = N_L
-        self.N_T = N_T
-        self.N = N_L*N_T
         self.D = D
         if self.arrangement == 'aligned':
-            self.Vmax = self.S_T*V_i/(self.S_T-D)
+            self.Vmax = self.S_T*self.V_i/(self.S_T-D)
         elif self.arrangement == 'staggered':
             self.S_D = np.sqrt(self.S_L**2+(self.S_T/2.)**2)
             self.Vmax = self.S_T*V_i/(2.*(self.S_D-D))
-        Re = self.Vmax*self.D/nu
+        Re = self.rho_i*self.Vmax*self.D/self.mu_m
         self.Re = Re
         self.Nu = np.inf
         Corr_aligned = np.array([0.70,0.80,0.86,0.90,0.92,0.94,0.95,0.96,0.96,0.97,0.97,0.97,0.98,0.99,0.99,0.99,0.99,0.99,0.99])
@@ -401,11 +424,11 @@ class BankofTubes(object):
             elif arrangement == 'staggered':
                 C = 0.9
                 m = 0.4
-            self.Nu = Corr*C*Re**m*Pr**(0.36)*(Pr/Pr_s)**(1./4.)
+            self.Nu = Corr*C*self.Re**m*self.Pr_m**(0.36)*(self.Pr_m/self.Pr_s)**(1./4.)
         elif (Re > 100.) and (Re <= 1000.):
             C = 0.51
             m = 0.
-            self.Nu = Corr*C*Re**m*Pr**(0.36)*(Pr/Pr_s)**(1./4.)
+            self.Nu = Corr*C*self.Re**m*self.Pr_m**(0.36)*(self.Pr_m/self.Pr_s)**(1./4.)
         elif (Re > 1000.) and (Re <= 2.e5):
             if arrangement == 'aligned':
                 if (S_T/S_L > 0.7):
@@ -421,7 +444,7 @@ class BankofTubes(object):
                 else:
                     C = 0.40
                     m = 0.6
-            self.Nu = Corr*C*Re**m*Pr**(0.36)*(Pr/Pr_s)**(1./4.)
+            self.Nu = Corr*C*self.Re**m*self.Pr_m**(0.36)*(self.Pr_m/self.Pr_s)**(1./4.)
         elif (Re > 2e5) and (Re <= 2.e6):
             if arrangement == 'aligned':
                 C = 0.021
@@ -429,23 +452,39 @@ class BankofTubes(object):
             elif arrangement == 'staggered':
                 C = 0.022
                 m = 0.84
-            self.Nu = Corr*C*Re**m*Pr**(0.36)*(Pr/Pr_s)**(1./4.)
+            self.Nu = Corr*C*self.Re**m*self.Pr_m**(0.36)*(self.Pr_m/self.Pr_s)**(1./4.)
         else:
             print('Warning: Re is out of bounds')
 
+        self.hbar = self.Nu*self.k_m/self.D
+        self.N_L_for_given_To = -np.log((self.T_s-self.T_o)/(self.T_s-self.T_i))/ \
+            (np.pi*self.D*self.hbar)*(self.rho_i*self.V_i*self.S_T*self.Cp_m)
+        if (self.N_L < 20) and (self.N_L_for_given_To >= 20):
+            print("WARNING input N_L < 20 but N_L computed for input T_o >=20. \ Rerun your BankofTubes object with the appropriate N_L to calculate the correct Nu")
+        if (self.N_L < 20) and (self.N_L_for_given_To >= 20):
+            print("WARNING input N_L >= 20 but N_L computed for input T_o <20. \ Rerun your BankofTubes object with the appropriate N_L to calculate the correct Nu")
 
-    def heat_rate(self,hbar,D,T_s,T_i,T_o):
-        DT_lm = Delta_T_lm(T_s,T_i,T_o)
-        self.q=self.N*hbar*np.pi*D*DT_lm
+    def heat_rate(self,N_T,N_L,L=1):
+        N = N_T*N_L
+        if N_L > 20 and self.N_L < 20:
+            print("WARNING: you chose N_L > 20 but your initial guess was < 20. \ Rerun your BankofTubes object with the appropriate N_L to calculate the correct Nu")
+        elif N_L < 20 and self.N_L >= 20:
+            print("WARNING: you chose N_L < 20 but your initial guess was > 20. \ Rerun your BankofTubes object with the appropriate N_L to calculate the correct Nu")
+        self.q=N*self.hbar*np.pi*self.D*self.Delta_T_lm*L
 
             
-def temperature_outlet_tube_banks(T_s,T_i,D,N,N_T,hbar,rho,V_i,S_T,Cp):
-    return T_s-(T_s-T_i)*np.exp(-np.pi*D*N*hbar/(rho*V_i*N_T*S_T*Cp))
+    def temperature_outlet_tube_banks(self,N_T,N_L):
+        if N_L >= 20 and self.N_L < 20:
+            print("WARNING: you chose N_L > 20 but your initial guess was < 20. \ Rerun your BankofTubes object with the appropriate N_L to calculate the correct Nu")
+        elif N_L < 20 and self.N_L >= 20:
+            print("WARNING: you chose N_L < 20 but your initial guess was > 20. \ Rerun your BankofTubes object with the appropriate N_L to calculate the correct Nu")
+        N = N_T*N_L
+        self.T_o = self.T_s-(self.T_s-self.T_i)* \
+            np.exp(-np.pi*self.D*N*self.hbar/(self.rho_i*self.V_i*N_T*self.S_T*self.Cp_m))
+    def pressure_drop(self,N_L,f,chi):
+        self.Delta_p = N_L*chi*(self.rho_i*self.Vmax**2/2)*f
 
-def N_L_for_given_To(T_s,T_i,T_o,D,hbar,rho,V_i,S_T,Cp):
-    return -np.log((T_s-T_o)/(T_s-T_i))/(np.pi*D*hbar)*(rho*V_i*S_T*Cp)
 
-def Delta_T_lm(T_s,T_i,T_o):
-    return ((T_s-T_i)-(T_s-T_o))/np.log((T_s-T_i)/(T_s-T_o))
+
 
 

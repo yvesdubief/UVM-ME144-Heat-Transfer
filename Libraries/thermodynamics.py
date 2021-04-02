@@ -45,8 +45,12 @@ class Fluid(object):
         
         
         """
-    def __init__(self,name,T,P = 101325.01):
+    def __init__(self,name,T,unit = "K",P = 101325.01):
         self.name = name
+        if unit == "C":
+            T = C2K(T)
+        elif unit == "F":
+            T = F2K(T)
         self.T = T
         self.P = P
         if P != 101325.01:
