@@ -55,7 +55,7 @@ class FlatPlate(object):
         self.Re_xc = Re_xc
         self.Re_L = self.L*self.U_infty/self.nu
         self.x_c = self.Re_xc*self.nu/self.U_infty
-        if self.regime != "laminar" and self.regime and "turbulent" and self.regime != "mixed":
+        if (self.regime != "laminar") and (self.regime != "turbulent") and (self.regime != "mixed"):
             print("Warning: regime is not properly defined")
         if self.thermal_bc != "isothermal" and self.thermal_bc != "heat flux" and self.thermal_bc != "unheated starting length":
             print("Warning: thermal boundary condition is not properly defined")
