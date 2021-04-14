@@ -170,7 +170,9 @@ def log_mean_temperature(T_s,T_o,T_i):
 def T_mx_Ts_constant(T_s,T_mi,P,mdot,Cp,hbar,x):
     return T_s-(T_s-T_mi)*np.exp(-P*x*hbar/(mdot*Cp))
 
-def T_mo_T_infty(T_infty,T_mi,P,L,mdot,Cp,R_tot):
+def T_mo_T_infty(T_infty,T_mi,mdot,Cp,R_tot):
     return T_infty-(Tinfty-T_mi)*np.exp(-1/(mdot*Cp*Rtot))
 
+def L_given_other_params(T_infty,T_mo,T_mi,mdot,Cp,Rptot):
+    return -mdot*Cp*Rptot*np.log((T_infty -T_mo)/(T_infty - T_mi))
 
