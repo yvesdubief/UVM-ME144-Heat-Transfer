@@ -1,5 +1,8 @@
 """ 
-Object name: HorizontalCylinder
+Object name: 
+    - HorizontalCylinder
+    - FlatPlate
+    - VerticalEnclosure
 Functions: Gr(g,beta,DT,D,nu) gives the Grashoff number based on:
             gravity g, thermal expansion coefficient beta, Temperature difference DT, 
             length scale D, viscosity nu
@@ -92,6 +95,68 @@ class VerticalEnclosure(object):
             else:
                 print('Ra is too high, got nothing for you')
                 self.Nu = np.inf
+class FlatPlate(object):
+    """ Natural convection caused by a flat plate at temperature T_s
+        in a fluid at given ambient temperature T_infty. 
+        Inputs:
+        - Ra based on the |T_s - T_infty| and L=A_s/P_s where 
+          A_s and P_s are the area and the perimeter of the plate,
+          respectively.
+        - Pr
+        - surface is either 'upper' or 'lower'
+        - surfaceT is either 'cold' or 'hot'
+        Output:
+        - Average Nu_L
+        Limits:
+        from NewLibraries import HT_natural_convection as natconv
+        plate = natconv.FlatPlate(Ra= Ra_L, Pr = Pr, 
+                                 surface = 'upper', surfaceT = 'hot')
+        plate = natconv.FlatPlate(Ra= Ra_L, Pr = Pr, 
+                                 surface = 'lower', surfaceT = 'cold')
+        - Ra > 1e4
+        - If 1e4 <= Ra <= 1e7 then Pr>= 0.7
+        - If 1e7 <= Ra <= 1e11 then all Pr
+        plate = natconv.FlatPlate(Ra= Ra_L, Pr = Pr, 
+                                 surface = 'lower', surfaceT = 'hot')
+        plate = natconv.FlatPlate(Ra= Ra_L, Pr = Pr, 
+                                 surface = 'upper', surfaceT = 'cold')
+        - 1e4<= Ra <= 1e9, Pr>=0.7
+       
+    """
+
+    def __init__(self,Ra,Pr,surface='none',surfaceT='none'):
+        self.Ra = Ra
+        self.Pr = Pr
+        self.surface = surface
+        self.surfaceT = surfaceT
+#         print(self.surface,self.surfaceT)
+        if (self.surface != 'upper') and (self.surface != 'lower'):
+            print(self.surface)
+            print("you must specify surface='upper' or 'lower'")
+        if (self.surfaceT != 'hot') and (self.surfaceT != 'cold'):
+            print("you must specify surfaceT='hot' or 'cold'")
+        if ((self.surface == 'upper') and (self.surfaceT == 'hot')) or \
+            ((self.surface == 'lower') and (self.surfaceT == 'cold')):
+                if (self.Ra >= 1e4) and (self.Ra <= 1e7):
+                    if self.Pr < 0.7:
+                        print("Warning: For %s surface of %s plate, \
+                              the correlation is only valid for Pr>= 0.7 " %(self.surface,self.surfaceT))
+                    self.Nu = 0.54*self.Ra**(1/4)
+                elif (self.Ra >= 1e7) : #and (self.Ra <= 1e11):
+                    self.Nu = 0.15*self.Ra**(1/3)
+                else:
+                    print("Ra is too small")
+                    self.Nu = 0
+        if ((self.surface == 'lower') and (self.surfaceT == 'hot')) or \
+            ((self.surface == 'upper') and (self.surfaceT == 'cold')):
+            if (self.Ra >= 1e4) : # and (self.Ra <= 1e9):
+                self.Nu = 0.15*self.Ra**(1/5)
+                if self.Pr < 0.7:
+                    print("Warning: the correlation is only valid for Pr>= 0.7")
+            else:
+                print("Ra is too small")
+                self.Nu=0
+
 
 def Gr(g=9.81,beta=0.0,DT=0.0,D=0.0,nu=1.0):
     return (g*beta*DT*D**3)/(nu**2)

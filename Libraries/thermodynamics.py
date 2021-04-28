@@ -1,4 +1,6 @@
 """ Object name: Fluid"""
+import sys  
+sys.path.insert(0, 'Tables/') 
 import numpy as np
 import scipy
 import scipy.optimize
@@ -46,6 +48,7 @@ class Fluid(object):
         
         """
     def __init__(self,name,T,unit = "K",P = 101325.01):
+        dirTables = 'https://raw.githubusercontent.com/yvesdubief/UVM-ME144-Heat-Transfer/master/Libraries/Tables/'
         self.name = name
         if unit == "C":
             T = C2K(T)
@@ -59,9 +62,10 @@ class Fluid(object):
         if self.name == 'water':
             if T < 274 or T > 373:
                 print("Temperature is out of bounds for liquid water")
-                return 
+                return
+            url = dirTables+'Water1atm.csv'
             Ttab,ptab,rhotab,Cptab,mutab,ktab = \
-            np.genfromtxt('Tables/water1atm.csv', delimiter=',', skip_header = 1, unpack=True, dtype=float)
+            np.genfromtxt(url, delimiter=',', skip_header = 1, unpack=True, dtype=float)
             Ntab = len(Ttab)
             Cptab *= 1e3
             nutab = mutab/rhotab 
@@ -76,9 +80,10 @@ class Fluid(object):
         elif self.name == 'argon':
             if T < 100 or T > 700:
                 print("Temperature is out of bounds for argon")
-                return 
+                return
+            url = dirTables + 'Argon1atm.csv'
             Ttab,ptab,rhotab,Cptab,mutab,ktab = \
-            np.loadtxt('Tables/Argon1atm.csv', delimiter=',', skiprows = 1, unpack=True, dtype=float)
+            np.loadtxt(url, delimiter=',', skiprows = 1, unpack=True, dtype=float)
             Ntab = len(Ttab)
             Cptab *= 1e3
             nutab = mutab/rhotab 
@@ -93,9 +98,10 @@ class Fluid(object):
         elif self.name == 'krypton':
             if T < 150 or T > 740:
                 print("Temperature is out of bounds for krypton")
-                return 
+                return
+            url = dirTables + 'Krypton1atm.csv'
             Ttab,ptab,rhotab,Cptab,mutab,ktab = \
-            np.loadtxt('Tables/Krypton1atm.csv', delimiter=',', skiprows = 1, unpack=True, dtype=float)
+            np.loadtxt(url, delimiter=',', skiprows = 1, unpack=True, dtype=float)
             Ntab = len(Ttab)
             Cptab *= 1e3
             nutab = mutab/rhotab 
@@ -111,8 +117,11 @@ class Fluid(object):
             if T < C2K(-150.) or T > C2K(400.):
                 print("Temperature is out of bounds of the table for air")
                 return
+            url = dirTables + 'Air1atm.csv'
+#             url = 'https://raw.githubusercontent.com/yvesdubief/UVM-ME144-Heat-Transfer/master/Libraries/Tables/Air1atm.csv'
+#             url = 'Tables/Air1atm.csv'
             Ttab,rhotab,Cptab,ktab,nutab,betatab,Prtab = \
-            np.genfromtxt('Tables/air1atm.csv', delimiter=',', skip_header = 1, unpack=True, dtype=float)
+            np.genfromtxt(url, delimiter=',', skip_header = 1, unpack=True, dtype=float)
             Ntab = len(Ttab)
             Ttab = C2K(Ttab)
             Cptab *= 1e3
