@@ -145,7 +145,7 @@ class FlatPlate(object):
                 elif (self.Ra >= 1e7) : #and (self.Ra <= 1e11):
                     self.Nu = 0.15*self.Ra**(1/3)
                 else:
-                    print("Ra is too small")
+#                     print("Ra is too small")
                     self.Nu = 0
         if ((self.surface == 'lower') and (self.surfaceT == 'hot')) or \
             ((self.surface == 'upper') and (self.surfaceT == 'cold')):
@@ -154,7 +154,7 @@ class FlatPlate(object):
                 if self.Pr < 0.7:
                     print("Warning: the correlation is only valid for Pr>= 0.7")
             else:
-                print("Ra is too small")
+#                 print("Ra is too small")
                 self.Nu=0
 
 
